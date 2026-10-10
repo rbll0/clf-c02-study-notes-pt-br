@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="en" data-theme="blueprint" data-mode="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Answer me with HTML 0.2.2">
+<title>AWS Cloud Practitioner (CLF-C02)</title>
+<style>
+html[data-theme="blueprint"], html[data-theme="blueprint"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 0px;
+  --shadow: none;
+  --bw: 1.5px;
+  --head-font: var(--font-sans);
+  --bg: #f6f6f3;
+  --paper: #ffffff;
+  --ink: #16181d;
+  --ink-2: #4b5260;
+  --ink-3: #8b929e;
+  --line: #1d2026;
+  --line-2: #d6dae1;
+  --fill: #f3f5f8;
+  --accent: #1d5fbf;
+  --accent-bg: #e4ecf8;
+  --ok: #1d5fbf;
+  --ok-bg: #e4ecf8;
+  --err: #c62828;
+  --err-bg: #fbeaea;
+  --warn: #a8620a;
+  --warn-bg: #fdf3e2;
+  --head-bg: #16181d;
+  --head-fg: #ffffff;
+}
+html[data-theme="blueprint"][data-mode="dark"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="blueprint"][data-mode="auto"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+}
+
+html[data-theme="shadcn"], html[data-theme="shadcn"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 8px;
+  --shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --bw: 1px;
+  --head-font: var(--font-sans);
+  --bg: #fafafa;
+  --paper: #ffffff;
+  --ink: #09090b;
+  --ink-2: #71717a;
+  --ink-3: #a1a1aa;
+  --line: #e4e4e7;
+  --line-2: #f0f0f2;
+  --fill: #f4f4f5;
+  --accent: #2563eb;
+  --accent-bg: #eff6ff;
+  --ok: #16a34a;
+  --ok-bg: #f0fdf4;
+  --err: #dc2626;
+  --err-bg: #fef2f2;
+  --warn: #d97706;
+  --warn-bg: #fffbeb;
+  --head-bg: #18181b;
+  --head-fg: #fafafa;
+}
+html[data-theme="shadcn"][data-mode="dark"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="shadcn"][data-mode="auto"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+}
+
+/* Answer me with HTML base — 只引用主题变量，禁止写死颜色（主题 token 见 themes/index.js） */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans); font-size: 14px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+code, pre, kbd { font-family: var(--font-mono); }
+
+/* ── 工具栏 ─────────────────────────────── */
+.am-toolbar {
+  position: fixed; top: 12px; right: 12px; z-index: 10; display: flex; gap: 6px;
+}
+.am-btn {
+  font: 12px/1 var(--font-sans); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius); padding: 7px 10px; cursor: pointer;
+}
+.am-btn:hover { border-color: var(--ink-3); }
+.am-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── 页头 ───────────────────────────────── */
+.am-head { margin: 0 0 20px; padding-right: 260px; }
+.am-head h1 { margin: 0; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; }
+.am-sub { margin: 4px 0 0; color: var(--ink-2); }
+.am-head-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
+.am-head-meta b { font-family: var(--font-mono); font-weight: 400; color: var(--ink-3); margin-right: 6px; }
+.am-intro { margin-top: 12px; max-width: 80ch; }
+
+/* ── sheet 图纸板 ────────────────────────── */
+.am-sheet { max-width: 1680px; margin: 0 auto; padding: 32px 28px 40px; }
+.am-frame { position: relative; }
+.am-grid {
+  display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 20px; align-items: start;
+}
+.am-ruler { display: none; }
+html[data-theme="blueprint"] .am-frame { border: 1px solid var(--line); padding: 30px; }
+html[data-theme="blueprint"] .am-frame::before {
+  content: ""; position: absolute; inset: 18px; border: 1px solid var(--line); pointer-events: none;
+}
+html[data-theme="blueprint"] .am-ruler {
+  display: flex; position: absolute; font: 10px/1 var(--font-mono); color: var(--ink-3);
+}
+.am-ruler span { flex: 1; display: flex; align-items: center; justify-content: center; }
+.am-ruler--top, .am-ruler--bottom { left: 18px; right: 18px; height: 18px; }
+.am-ruler--top { top: 0; }
+.am-ruler--bottom { bottom: 0; }
+.am-ruler--left, .am-ruler--right { top: 18px; bottom: 18px; width: 18px; flex-direction: column; }
+.am-ruler--left { left: 0; }
+.am-ruler--right { right: 0; }
+.am-ruler--top span + span, .am-ruler--bottom span + span { border-left: 1px solid var(--line); }
+.am-ruler--left span + span, .am-ruler--right span + span { border-top: 1px solid var(--line); }
+
+/* ── 面板 ───────────────────────────────── */
+.am-panel {
+  background: var(--paper); border: var(--bw) solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); min-width: 0; overflow: hidden;
+}
+.am-panel-head {
+  display: flex; align-items: stretch; gap: 0; border-bottom: var(--bw) solid var(--line); min-height: 34px;
+}
+.am-panel-id {
+  display: flex; align-items: center; justify-content: center; min-width: 34px; padding: 0 8px;
+  background: var(--head-bg); color: var(--head-fg); font-weight: 600; font-size: 14px;
+}
+html[data-theme="shadcn"] .am-panel-id { border-radius: 6px; min-width: 24px; height: 24px; margin: 9px 0 9px 14px; font-size: 12px; }
+html[data-theme="shadcn"] .am-panel-head { border-bottom-width: 1px; }
+.am-panel-head h2 { margin: 0; padding: 7px 12px; font-size: 15px; font-weight: 600; flex: 1; display: flex; align-items: center; }
+.am-panel-meta { align-self: center; padding: 0 12px; font: 11px/1.3 var(--font-mono); color: var(--ink-2); text-align: right; }
+.am-panel-body { padding: 14px 16px 16px; }
+.am-panel-body > * + * { margin-top: 12px; }
+
+/* ── Markdown 正文 ───────────────────────── */
+.am-md > :first-child { margin-top: 0; }
+.am-md > :last-child { margin-bottom: 0; }
+.am-md p { margin: 0 0 8px; }
+.am-md ul, .am-md ol { margin: 0 0 8px; padding-left: 20px; }
+.am-md li + li { margin-top: 3px; }
+.am-md h3, .am-md h4 { margin: 14px 0 6px; font-size: 13px; }
+.am-md a { color: var(--accent); }
+.am-md blockquote { margin: 0 0 8px; padding: 2px 12px; border-left: 3px solid var(--line-2); color: var(--ink-2); }
+.am-md :not(pre) > code { font-size: 0.9em; background: var(--fill); padding: 1px 5px; border-radius: 4px; }
+.am-md hr { border: 0; border-top: 1px solid var(--line-2); margin: 12px 0; }
+.am-md table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.am-md th {
+  text-align: left; font: 11px/1.3 var(--font-mono); color: var(--ink-2); font-weight: 400;
+  padding: 6px 10px; border-bottom: 1px solid var(--line-2);
+}
+.am-md td { padding: 7px 10px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+.am-md tbody tr:nth-child(even) td { background: var(--fill); }
+.am-table-wrap { overflow-x: auto; }
+.am-code {
+  margin: 0; padding: 12px 14px; background: var(--fill); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow-x: auto; font-size: 12.5px; line-height: 1.5;
+}
+
+/* ── 状态徽章 ok / no / warn ──────────────── */
+.am-status { white-space: nowrap; font-weight: 500; }
+.am-status--ok { color: var(--ok); }
+.am-status--no { color: var(--err); }
+.am-status--warn { color: var(--warn); }
+.am-status-icon { display: inline-block; width: 1.1em; font-weight: 700; }
+
+/* ── callout ─────────────────────────────── */
+.am-callout {
+  border: 1px solid var(--line-2); border-left: 3px solid var(--accent); background: var(--accent-bg);
+  padding: 10px 14px; border-radius: var(--radius);
+}
+.am-callout--ok { border-left-color: var(--ok); background: var(--ok-bg); }
+.am-callout--warn { border-left-color: var(--warn); background: var(--warn-bg); }
+.am-callout--err { border-left-color: var(--err); background: var(--err-bg); }
+.am-callout-title { font-weight: 600; margin-bottom: 4px; }
+
+/* ── kv 标题栏格 ─────────────────────────── */
+.am-kv {
+  display: grid; grid-template-columns: repeat(var(--kv-cols, 2), minmax(0, 1fr)); margin: 0;
+  border-top: var(--bw) solid var(--line); border-left: var(--bw) solid var(--line);
+}
+.am-kv-cell { border-right: var(--bw) solid var(--line); border-bottom: var(--bw) solid var(--line); padding: 6px 10px 8px; min-width: 0; }
+.am-kv-cell--wide { grid-column: 1 / -1; }
+.am-kv dt { font: 11px/1.4 var(--font-mono); color: var(--ink-2); }
+.am-kv dd { margin: 2px 0 0; font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
+.am-kv-cell--wide dd { font-size: 17px; font-weight: 600; }
+html[data-theme="shadcn"] .am-kv { border-color: var(--line); border-radius: var(--radius); overflow: hidden; }
+
+/* ── timeline ────────────────────────────── */
+.am-timeline { list-style: none; margin: 0; padding: 0; }
+.am-timeline--h { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); padding-top: 4px; }
+.am-timeline--h li { position: relative; text-align: center; padding: 0 6px; }
+.am-timeline--h li::before {
+  content: ""; position: absolute; top: 31px; left: 0; right: 0; border-top: var(--bw) solid var(--line);
+}
+.am-timeline--h li:first-child::before { left: 50%; }
+.am-timeline--h li:last-child::before { right: 50%; }
+.am-tl-when { display: block; font-size: 15px; font-weight: 500; height: 24px; }
+.am-tl-dot {
+  position: relative; display: block; width: 11px; height: 11px; margin: 2px auto 8px;
+  border: var(--bw) solid var(--line); border-radius: 50%; background: var(--paper);
+}
+.am-tl-item--hi .am-tl-dot { background: var(--accent); border-color: var(--accent); }
+.am-tl-title { display: block; font-size: 12.5px; font-weight: 500; }
+.am-tl-text { display: block; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+.am-timeline--v li { position: relative; padding: 0 0 14px 22px; }
+.am-timeline--v li::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: -6px; border-left: var(--bw) solid var(--line-2); }
+.am-timeline--v li:last-child::before { display: none; }
+.am-timeline--v .am-tl-dot { position: absolute; left: 0; top: 4px; margin: 0; }
+.am-timeline--v .am-tl-when { display: inline; height: auto; font: 12px var(--font-mono); color: var(--ink-2); margin-right: 8px; }
+.am-timeline--v .am-tl-title { display: inline; font-size: 14px; }
+.am-timeline--v .am-tl-text { margin-top: 2px; }
+
+/* ── annot 句子标注 ──────────────────────── */
+.am-annot + .am-annot { border-top: 1px solid var(--line-2); padding-top: 12px; }
+.am-annot-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.am-annot-meta { font: 11px var(--font-mono); font-weight: 400; color: var(--ink-2); }
+.am-annot-scroll { overflow-x: auto; }
+.am-annot-line {
+  position: relative; display: inline-block; white-space: pre; font: 14px/1.6 var(--font-mono);
+  padding-bottom: calc(var(--rows, 0) * 17px + 14px);
+}
+.am-annot-line--wrap { display: block; white-space: normal; padding-bottom: 10px; }
+.am-annot-line--wrap .am-seg { white-space: nowrap; }
+.am-seg { position: relative; }
+.am-seg::after {
+  content: ""; position: absolute; left: 1px; right: 1px; top: calc(100% + 1px); height: 5px;
+  border: 1px solid var(--accent); border-top: 0;
+}
+.am-seg-n {
+  position: absolute; left: 0; top: calc(100% + 8px + var(--row, 0) * 17px);
+  font: 11px/16px var(--font-sans); color: var(--accent); white-space: nowrap;
+}
+.am-seg--err { color: var(--err); }
+.am-seg--err::after { border-color: var(--err); }
+.am-seg--err .am-seg-n { color: var(--err); }
+.am-annot-caption { font-size: 12px; color: var(--ink-2); }
+
+/* ── limits 限值条 ───────────────────────── */
+.am-lim + .am-lim { margin-top: 14px; }
+.am-lim-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; margin-bottom: 4px; }
+.am-lim-val { font: 12px var(--font-mono); color: var(--accent); white-space: nowrap; }
+.am-lim-track { position: relative; height: 12px; border: 1px solid var(--line-2); background: var(--fill); border-radius: calc(var(--radius) / 2); }
+.am-lim-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent-bg); border-right: 1px solid var(--accent); }
+.am-lim-mark { position: absolute; top: -4px; bottom: -4px; border-left: 2px solid var(--accent); }
+.am-lim.is-over .am-lim-fill { background: var(--err-bg); border-right-color: var(--err); }
+.am-lim.is-over .am-lim-val { color: var(--err); }
+.am-lim-ticks { position: relative; height: 16px; font: 10px/16px var(--font-mono); color: var(--ink-3); }
+.am-lim-ticks span { position: absolute; transform: translateX(-50%); }
+.am-lim-ticks span:first-child { transform: none; }
+.am-lim-note { font-size: 11px; color: var(--ink-2); margin-left: 6px; }
+
+/* ── tree 结构树 ─────────────────────────── */
+.am-tree { font-size: 13px; }
+.am-tree-root { display: flex; justify-content: center; position: relative; padding-bottom: 18px; }
+.am-tree-root::after { content: ""; position: absolute; bottom: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-root--solo { padding-bottom: 12px; }
+.am-tree-root--solo::after { display: none; }
+.am-tree-box {
+  border: var(--bw) solid var(--line); background: var(--paper); padding: 6px 14px; text-align: center;
+  border-radius: var(--radius); font-weight: 600;
+}
+.am-tree-box small { display: block; font-weight: 400; color: var(--ink-2); font-size: 12px; }
+.am-tree-box--root { background: var(--accent-bg); font-size: 15px; padding: 8px 28px; }
+.am-tree-cols { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); }
+.am-tree-col { position: relative; padding: 18px 8px 0; min-width: 0; }
+.am-tree-col::before { content: ""; position: absolute; top: 0; left: 0; right: 0; border-top: var(--bw) solid var(--line); }
+.am-tree-col:first-child::before { left: 50%; }
+.am-tree-col:last-child::before { right: 50%; }
+.am-tree-col::after { content: ""; position: absolute; top: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-list, .am-tree-list ul { list-style: none; margin: 0; padding: 0; }
+.am-tree-col > .am-tree-list { margin: 8px 0 0 14px; }
+.am-tree-list ul { margin-left: 16px; }
+.am-tree-list li { position: relative; padding: 3px 0 3px 18px; }
+.am-tree-list li::before { content: ""; position: absolute; left: 0; top: 0.95em; width: 12px; border-top: 1px solid var(--ink-3); }
+.am-tree-list li::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1px solid var(--ink-3); }
+.am-tree-list li:last-child::after { bottom: auto; height: 0.95em; }
+.am-tree-tag { font: 11px var(--font-mono); color: var(--ink-3); margin-right: 4px; }
+.am-tree code { font: 12px var(--font-mono); }
+.am-tree-sub { display: block; font-size: 11.5px; color: var(--ink-2); }
+.am-tree-hi > .am-tree-label { color: var(--accent); font-weight: 600; }
+
+/* ── 图（flow / sequence）───────────────── */
+.am-diagram { margin: 0; overflow-x: auto; text-align: center; }
+.am-diagram svg { max-width: 100%; height: auto; font-family: var(--font-sans); }
+.am-diagram text { fill: var(--ink); font-size: 13px; }
+.am-node-shape { fill: var(--paper); stroke: var(--line); stroke-width: var(--bw); }
+.am-node--hi .am-node-shape { fill: var(--accent-bg); stroke: var(--accent); }
+.am-node--hi text { fill: var(--accent); font-weight: 600; }
+.am-edge { fill: none; stroke: var(--ink-2); stroke-width: 1.3; }
+.am-edge--dashed { stroke-dasharray: 5 4; }
+.am-arrow { fill: var(--ink-2); }
+.am-edge-label rect { fill: var(--paper); }
+.am-diagram .am-edge-label text { fill: var(--accent); font-size: 11.5px; }
+.am-cluster { fill: var(--fill); stroke: var(--line-2); stroke-width: 1; stroke-dasharray: 4 3; }
+.am-diagram .am-cluster-label { fill: var(--ink-2); font: 11px var(--font-mono); }
+.am-lifeline { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 4 4; }
+.am-actor { fill: var(--paper); stroke: var(--line); stroke-width: var(--bw); }
+.am-note { fill: var(--warn-bg); stroke: var(--warn); stroke-width: 1; }
+.am-diagram .am-step { fill: var(--ink-3); font: 10px var(--font-mono); }
+
+/* ── doc 线性讲解 ────────────────────────── */
+.am-doc { max-width: 1120px; margin: 0 auto; padding: 40px 28px 64px; }
+.am-doc-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.am-doc-layout--notoc { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
+.am-toc { position: sticky; top: 24px; font-size: 13px; }
+.am-toc a { display: block; color: var(--ink-2); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid var(--line-2); }
+.am-toc a:hover { color: var(--ink); border-left-color: var(--accent); }
+.am-doc-body > .am-panel + .am-panel { margin-top: 20px; }
+
+/* ── 响应式与打印 ─────────────────────────── */
+@media (max-width: 1100px) {
+  .am-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .am-grid > .am-panel { grid-column: auto !important; }
+  .am-grid > .am-panel.am-span-wide { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 760px) {
+  .am-sheet, .am-doc { padding: 56px 12px 24px; }
+  .am-head { padding-right: 0; }
+  .am-grid { grid-template-columns: minmax(0, 1fr); }
+  .am-grid > .am-panel.am-span-wide { grid-column: auto !important; }
+  html[data-theme="blueprint"] .am-frame { padding: 0; border: 0; }
+  html[data-theme="blueprint"] .am-frame::before, html[data-theme="blueprint"] .am-ruler { display: none; }
+  .am-doc-layout { grid-template-columns: minmax(0, 1fr); }
+  .am-toc { position: static; }
+  .am-timeline--h { grid-template-columns: minmax(0, 1fr); }
+  .am-tree-cols { grid-template-columns: minmax(0, 1fr); }
+}
+.am-colophon { text-align: center; padding: 0 0 28px; font: 11px var(--font-mono); color: var(--ink-3); }
+
+@media print {
+  .am-toolbar { display: none; }
+  body { background: var(--paper); }
+  .am-panel { break-inside: avoid; box-shadow: none; }
+}
+.am-panel--bare { border: 0; background: transparent; box-shadow: none; }
+.am-panel--bare > .am-panel-body { padding: 0; }
+.am-panel--bare .am-kv { background: var(--paper); }
+
+</style>
+</head>
+<body>
+<div class="am-toolbar">
+<button class="am-btn" type="button" data-am="theme" data-labels="{&quot;blueprint&quot;:&quot;Theme: Blueprint&quot;,&quot;shadcn&quot;:&quot;Theme: Cards&quot;}">Theme: Blueprint</button>
+<button class="am-btn" type="button" data-am="mode" data-labels="{&quot;auto&quot;:&quot;Mode: Auto&quot;,&quot;light&quot;:&quot;Mode: Light&quot;,&quot;dark&quot;:&quot;Mode: Dark&quot;}">Mode: Auto</button>
+<button class="am-btn" type="button" data-am="copy" data-done="Copied ✓">Copy source</button>
+</div>
+<main class="am-sheet">
+<header class="am-head"><h1>AWS Cloud Practitioner (CLF-C02)</h1><p class="am-sub">Os conceitos que caem na prova, por domínio</p><div class="am-head-meta"><span><b>exame</b>65 questões · 90 min · nota mínima 700/1000</span></div><div class="am-intro am-md"><div class="am-md"><p>A prova testa conceitos, não configuração. Saiba <strong>o que cada serviço resolve</strong> e <strong>quem é responsável pelo quê</strong>.</p>
+</div></div></header>
+<div class="am-frame">
+<div class="am-ruler am-ruler--top" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div><div class="am-ruler am-ruler--bottom" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div><div class="am-ruler am-ruler--left" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div><div class="am-ruler am-ruler--right" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+<div class="am-grid" style="--cols: 3">
+<section class="am-panel am-span-wide" id="panel-A" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">A</span><h2>Os 4 domínios da prova</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Domínio</th>
+<th>Peso</th>
+<th>Foco</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. Conceitos de nuvem</td>
+<td>24%</td>
+<td>Benefícios, Well-Architected, migração, economia</td>
+</tr>
+<tr>
+<td>2. Segurança e compliance</td>
+<td>30%</td>
+<td>Responsabilidade compartilhada, IAM, proteção</td>
+</tr>
+<tr>
+<td>3. Tecnologia e serviços</td>
+<td>34%</td>
+<td>Infraestrutura global, compute, storage, banco, rede</td>
+</tr>
+<tr>
+<td>4. Cobrança e suporte</td>
+<td>12%</td>
+<td>Modelos de preço, ferramentas de custo, planos de suporte</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel" id="panel-B">
+<header class="am-panel-head"><span class="am-panel-id">B</span><h2>Benefícios da nuvem</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li><strong>Elasticidade</strong>: a capacidade cresce e diminui com a demanda.</li>
+<li><strong>Escalabilidade</strong>: o sistema suporta mais carga ao adicionar recursos.</li>
+<li><strong>Alta disponibilidade</strong>: o sistema continua ativo com várias AZs.</li>
+<li><strong>Agilidade</strong>: você cria recursos em minutos.</li>
+<li><strong>Economia de escala</strong>: a AWS compra em volume e baixa o preço.</li>
+<li><strong>CapEx → OpEx</strong>: você troca investimento fixo por custo variável.</li>
+<li><strong>Alcance global</strong>: você publica em várias regiões rapidamente.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel" id="panel-C">
+<header class="am-panel-head"><span class="am-panel-id">C</span><h2>Modelos de serviço</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Você gerencia</th>
+<th>Exemplo AWS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IaaS</td>
+<td>SO, apps, dados</td>
+<td>EC2</td>
+</tr>
+<tr>
+<td>PaaS</td>
+<td>Apps e dados</td>
+<td>Elastic Beanstalk</td>
+</tr>
+<tr>
+<td>SaaS</td>
+<td>Só o uso</td>
+<td>Amazon WorkMail</td>
+</tr>
+</tbody></table></div>
+<p><strong>Implantação</strong>: nuvem pública, on-premises (privada) e híbrida.</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-D">
+<header class="am-panel-head"><span class="am-panel-id">D</span><h2>Well-Architected: 6 pilares</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Pilar</th>
+<th>Pergunta-chave</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Excelência operacional</td>
+<td>Como você opera e melhora?</td>
+</tr>
+<tr>
+<td>Segurança</td>
+<td>Como você protege dados e sistemas?</td>
+</tr>
+<tr>
+<td>Confiabilidade</td>
+<td>O sistema se recupera de falhas?</td>
+</tr>
+<tr>
+<td>Eficiência de performance</td>
+<td>Você usa os recursos certos?</td>
+</tr>
+<tr>
+<td>Otimização de custo</td>
+<td>Você evita gasto inútil?</td>
+</tr>
+<tr>
+<td>Sustentabilidade</td>
+<td>Você reduz o impacto ambiental?</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-E" style="grid-column: span 2">
+<header class="am-panel-head"><span class="am-panel-id">E</span><h2>Responsabilidade compartilhada (exemplo EC2)</h2></header>
+<div class="am-panel-body"><figure class="am-diagram am-flow"><svg viewBox="0 0 1299 143" width="1299" height="143" role="img" aria-label="流程图：Datacenter físico、Hardware e rede global、Hipervisor、SO e patches、Security Groups、IAM e acessos、Dados e criptografia" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am1-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="am-arrow" d="M0,0 L10,5 L0,10 z"/></marker></defs><g><rect class="am-cluster" x="14" y="26" width="532.4" height="91" rx="4"/><text class="am-cluster-label" x="22" y="40">AWS cuida da nuvem</text><rect class="am-cluster" x="592.4" y="26" width="692" height="91" rx="4"/><text class="am-cluster-label" x="600.4" y="40">Cliente cuida do que põe na nuvem</text></g><g><path class="am-edge" d="M173.7,71.5 L185.2,71.5 Q196.7,71.5 208.2,71.5 L219.7,71.5" marker-end="url(#am1-arrow)"/><path class="am-edge" d="M387.6,71.5 L399.1,71.5 Q410.6,71.5 422.1,71.5 L433.6,71.5" marker-end="url(#am1-arrow)"/><path class="am-edge" d="M523.4,71.5 L534.9,71.5 Q546.4,71.5 557.9,71.5 Q569.4,71.5 580.9,71.5 Q592.4,71.5 603.9,71.5 L615.4,71.5" marker-end="url(#am1-arrow)"/><path class="am-edge" d="M726.4,71.5 L737.9,71.5 Q749.4,71.5 760.9,71.5 L772.4,71.5" marker-end="url(#am1-arrow)"/><path class="am-edge" d="M899.2,71.5 L910.7,71.5 Q922.2,71.5 933.7,71.5 L945.2,71.5" marker-end="url(#am1-arrow)"/><path class="am-edge" d="M1063.4,71.5 L1074.9,71.5 Q1086.4,71.5 1097.9,71.5 L1109.4,71.5" marker-end="url(#am1-arrow)"/></g><g><g class="am-node am-node--rect"><rect class="am-node-shape" x="37" y="54" width="136.7" height="35" rx="3"/><text x="105.3" y="71.5" text-anchor="middle" dominant-baseline="central">Datacenter físico</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="219.7" y="54" width="167.9" height="35" rx="3"/><text x="303.6" y="71.5" text-anchor="middle" dominant-baseline="central">Hardware e rede global</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="433.6" y="54" width="89.9" height="35" rx="3"/><text x="478.5" y="71.5" text-anchor="middle" dominant-baseline="central">Hipervisor</text></g><g class="am-node am-node--rect am-node--hi"><rect class="am-node-shape" x="615.4" y="54" width="110.9" height="35" rx="3"/><text x="670.9" y="71.5" text-anchor="middle" dominant-baseline="central">SO e patches</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="772.4" y="54" width="126.8" height="35" rx="3"/><text x="835.8" y="71.5" text-anchor="middle" dominant-baseline="central">Security Groups</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="945.2" y="54" width="118.2" height="35" rx="3"/><text x="1004.3" y="71.5" text-anchor="middle" dominant-baseline="central">IAM e acessos</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="1109.4" y="54" width="152" height="35" rx="3"/><text x="1185.4" y="71.5" text-anchor="middle" dominant-baseline="central">Dados e criptografia</text></g></g></svg></figure>
+<div class="am-md"><ul>
+<li>Em serviços gerenciados (RDS, Lambda, S3), a AWS cuida de mais camadas, como SO e patches.</li>
+<li>O <strong>cliente sempre</strong> é dono dos dados e dos acessos.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel" id="panel-F">
+<header class="am-panel-head"><span class="am-panel-id">F</span><h2>Segurança: serviços-chave</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IAM</td>
+<td>Usuários, grupos, roles e políticas</td>
+</tr>
+<tr>
+<td>MFA</td>
+<td>Segundo fator. Ative na conta root</td>
+</tr>
+<tr>
+<td>Organizations + SCP</td>
+<td>Governa várias contas</td>
+</tr>
+<tr>
+<td>Shield</td>
+<td>Proteção DDoS (Standard grátis)</td>
+</tr>
+<tr>
+<td>WAF</td>
+<td>Firewall de aplicação web</td>
+</tr>
+<tr>
+<td>GuardDuty</td>
+<td>Detecta ameaças</td>
+</tr>
+<tr>
+<td>Inspector</td>
+<td>Busca vulnerabilidades em EC2 e containers</td>
+</tr>
+<tr>
+<td>Macie</td>
+<td>Encontra dados sensíveis no S3</td>
+</tr>
+<tr>
+<td>KMS</td>
+<td>Gerencia chaves de criptografia</td>
+</tr>
+<tr>
+<td>Artifact</td>
+<td>Relatórios de compliance (ISO, SOC, PCI)</td>
+</tr>
+<tr>
+<td>CloudTrail</td>
+<td>Registra quem chamou cada API</td>
+</tr>
+<tr>
+<td>Config</td>
+<td>Histórico de configuração dos recursos</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel" id="panel-G">
+<header class="am-panel-head"><span class="am-panel-id">G</span><h2>Infraestrutura global</h2></header>
+<div class="am-panel-body"><div class="am-tree"><div class="am-tree-root"><div class="am-tree-box am-tree-box--root">Infraestrutura global AWS</div></div><div class="am-tree-cols" style="--n: 3"><div class="am-tree-col"><div class="am-tree-box">Região<small>Área geográfica isolada. Escolha por compliance, latência, preço e serviços</small></div><ul class="am-tree-list"><li><span class="am-tree-label">Availability Zone</span><span class="am-tree-sub">Um ou mais datacenters. Mínimo de 3 por região</span></li></ul></div><div class="am-tree-col"><div class="am-tree-box">Edge Location<small>Cache do CloudFront perto do usuário</small></div></div><div class="am-tree-col"><div class="am-tree-box">Local Zone / Wavelength<small>Latência muito baixa em cidades e redes 5G</small></div></div></div></div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-H" style="grid-column: span 2">
+<header class="am-panel-head"><span class="am-panel-id">H</span><h2>Serviços principais</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Serviços</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Compute</td>
+<td>EC2, Lambda (serverless), ECS / EKS (containers), Fargate, Elastic Beanstalk</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>S3 (objetos), EBS (disco do EC2), EFS (arquivos compartilhados), Glacier (arquivo), Storage Gateway (híbrido)</td>
+</tr>
+<tr>
+<td>Banco de dados</td>
+<td>RDS e Aurora (relacional), DynamoDB (NoSQL), ElastiCache (cache), Redshift (data warehouse)</td>
+</tr>
+<tr>
+<td>Rede</td>
+<td>VPC, Route 53 (DNS), CloudFront (CDN), ELB, Direct Connect, VPN</td>
+</tr>
+<tr>
+<td>Monitoramento</td>
+<td>CloudWatch (métricas e alarmes), Trusted Advisor</td>
+</tr>
+<tr>
+<td>Migração</td>
+<td>Snowball, DMS, Migration Hub, Application Migration Service</td>
+</tr>
+<tr>
+<td>IA / ML</td>
+<td>SageMaker, Rekognition, Comprehend, Lex, Polly, Bedrock</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-I" style="grid-column: span 2">
+<header class="am-panel-head"><span class="am-panel-id">I</span><h2>Modelos de preço do EC2</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Quando usar</th>
+<th>Desconto</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>On-Demand</td>
+<td>Carga curta e imprevisível</td>
+<td>Nenhum</td>
+</tr>
+<tr>
+<td>Reserved Instances</td>
+<td>Carga estável por 1 ou 3 anos</td>
+<td>Até 72%</td>
+</tr>
+<tr>
+<td>Savings Plans</td>
+<td>Compromisso de gasto por hora, mais flexível</td>
+<td>Até 72%</td>
+</tr>
+<tr>
+<td>Spot</td>
+<td>Carga que tolera interrupção</td>
+<td>Até 90%</td>
+</tr>
+<tr>
+<td>Dedicated Host</td>
+<td>Licença por servidor ou compliance</td>
+<td>Mais caro</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel" id="panel-J">
+<header class="am-panel-head"><span class="am-panel-id">J</span><h2>Ferramentas de custo</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li><strong>Pricing Calculator</strong>: estima custo antes de criar.</li>
+<li><strong>Cost Explorer</strong>: analisa o gasto passado.</li>
+<li><strong>Budgets</strong>: alerta quando passa do limite.</li>
+<li><strong>Cost and Usage Report</strong>: relatório mais detalhado.</li>
+<li><strong>Tags de alocação</strong>: separam custo por projeto.</li>
+<li><strong>Free Tier</strong>: sempre grátis, 12 meses e trials.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-K" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">K</span><h2>Planos de suporte</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Plano</th>
+<th>Resposta em caso crítico</th>
+<th>TAM</th>
+<th>Trusted Advisor completo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Basic</td>
+<td>—</td>
+<td><span class="am-status am-status--no"><span class="am-status-icon" aria-hidden="true">✗</span></span></td>
+<td><span class="am-status am-status--no"><span class="am-status-icon" aria-hidden="true">✗</span></span></td>
+</tr>
+<tr>
+<td>Developer</td>
+<td>—</td>
+<td><span class="am-status am-status--no"><span class="am-status-icon" aria-hidden="true">✗</span></span></td>
+<td><span class="am-status am-status--no"><span class="am-status-icon" aria-hidden="true">✗</span></span></td>
+</tr>
+<tr>
+<td>Business</td>
+<td>&lt; 1 h (produção fora do ar)</td>
+<td><span class="am-status am-status--no"><span class="am-status-icon" aria-hidden="true">✗</span></span></td>
+<td><span class="am-status am-status--ok"><span class="am-status-icon" aria-hidden="true">✓</span></span></td>
+</tr>
+<tr>
+<td>Enterprise On-Ramp</td>
+<td>&lt; 30 min</td>
+<td><span class="am-status am-status--warn"><span class="am-status-icon" aria-hidden="true">!</span>Pool de TAMs</span></td>
+<td><span class="am-status am-status--ok"><span class="am-status-icon" aria-hidden="true">✓</span></span></td>
+</tr>
+<tr>
+<td>Enterprise</td>
+<td>&lt; 15 min</td>
+<td><span class="am-status am-status--ok"><span class="am-status-icon" aria-hidden="true">✓</span>Dedicado</span></td>
+<td><span class="am-status am-status--ok"><span class="am-status-icon" aria-hidden="true">✓</span></span></td>
+</tr>
+</tbody></table></div>
+</div>
+<div class="am-callout am-callout--info" role="note"><div class="am-callout-title">Dica de prova</div><div class="am-callout-body am-md"><p>Leia o verbo da pergunta. &quot;Auditar chamadas de API&quot; = CloudTrail. &quot;Monitorar métricas&quot; = CloudWatch. &quot;Recomendações de custo e segurança&quot; = Trusted Advisor. &quot;Relatório de compliance&quot; = Artifact.</p>
+</div></div></div>
+</section>
+</div>
+</div>
+</main>
+<footer class="am-colophon">Generated by Answer me with HTML 0.2.2 · 2026-10-03 12:01</footer>
+<textarea id="am-source" hidden readonly aria-hidden="true">---
+title: AWS Cloud Practitioner (CLF-C02)
+subtitle: Os conceitos que caem na prova, por domínio
+cols: 3
+exame: 65 questões · 90 min · nota mínima 700/1000
+---
+A prova testa conceitos, não configuração. Saiba **o que cada serviço resolve** e **quem é responsável pelo quê**.
+
+## A Os 4 domínios da prova {span=3}
+| Domínio | Peso | Foco |
+|---|---|---|
+| 1. Conceitos de nuvem | 24% | Benefícios, Well-Architected, migração, economia |
+| 2. Segurança e compliance | 30% | Responsabilidade compartilhada, IAM, proteção |
+| 3. Tecnologia e serviços | 34% | Infraestrutura global, compute, storage, banco, rede |
+| 4. Cobrança e suporte | 12% | Modelos de preço, ferramentas de custo, planos de suporte |
+
+## B Benefícios da nuvem
+- **Elasticidade**: a capacidade cresce e diminui com a demanda.
+- **Escalabilidade**: o sistema suporta mais carga ao adicionar recursos.
+- **Alta disponibilidade**: o sistema continua ativo com várias AZs.
+- **Agilidade**: você cria recursos em minutos.
+- **Economia de escala**: a AWS compra em volume e baixa o preço.
+- **CapEx → OpEx**: você troca investimento fixo por custo variável.
+- **Alcance global**: você publica em várias regiões rapidamente.
+
+## C Modelos de serviço
+| Modelo | Você gerencia | Exemplo AWS |
+|---|---|---|
+| IaaS | SO, apps, dados | EC2 |
+| PaaS | Apps e dados | Elastic Beanstalk |
+| SaaS | Só o uso | Amazon WorkMail |
+
+**Implantação**: nuvem pública, on-premises (privada) e híbrida.
+
+## D Well-Architected: 6 pilares
+| Pilar | Pergunta-chave |
+|---|---|
+| Excelência operacional | Como você opera e melhora? |
+| Segurança | Como você protege dados e sistemas? |
+| Confiabilidade | O sistema se recupera de falhas? |
+| Eficiência de performance | Você usa os recursos certos? |
+| Otimização de custo | Você evita gasto inútil? |
+| Sustentabilidade | Você reduz o impacto ambiental? |
+
+## E Responsabilidade compartilhada (exemplo EC2) {span=2}
+```flow LR
+Datacenter físico -&gt; Hardware e rede global -&gt; Hipervisor -&gt; *SO e patches -&gt; Security Groups -&gt; IAM e acessos -&gt; Dados e criptografia
+group AWS cuida da nuvem: Datacenter físico, Hardware e rede global, Hipervisor
+group Cliente cuida do que põe na nuvem: SO e patches, Security Groups, IAM e acessos, Dados e criptografia
+```
+- Em serviços gerenciados (RDS, Lambda, S3), a AWS cuida de mais camadas, como SO e patches.
+- O **cliente sempre** é dono dos dados e dos acessos.
+
+## F Segurança: serviços-chave
+| Serviço | Função |
+|---|---|
+| IAM | Usuários, grupos, roles e políticas |
+| MFA | Segundo fator. Ative na conta root |
+| Organizations + SCP | Governa várias contas |
+| Shield | Proteção DDoS (Standard grátis) |
+| WAF | Firewall de aplicação web |
+| GuardDuty | Detecta ameaças |
+| Inspector | Busca vulnerabilidades em EC2 e containers |
+| Macie | Encontra dados sensíveis no S3 |
+| KMS | Gerencia chaves de criptografia |
+| Artifact | Relatórios de compliance (ISO, SOC, PCI) |
+| CloudTrail | Registra quem chamou cada API |
+| Config | Histórico de configuração dos recursos |
+
+## G Infraestrutura global
+```tree
+Infraestrutura global AWS
+  Região | Área geográfica isolada. Escolha por compliance, latência, preço e serviços
+    Availability Zone | Um ou mais datacenters. Mínimo de 3 por região
+  Edge Location | Cache do CloudFront perto do usuário
+  Local Zone / Wavelength | Latência muito baixa em cidades e redes 5G
+```
+
+## H Serviços principais {span=2}
+| Categoria | Serviços |
+|---|---|
+| Compute | EC2, Lambda (serverless), ECS / EKS (containers), Fargate, Elastic Beanstalk |
+| Storage | S3 (objetos), EBS (disco do EC2), EFS (arquivos compartilhados), Glacier (arquivo), Storage Gateway (híbrido) |
+| Banco de dados | RDS e Aurora (relacional), DynamoDB (NoSQL), ElastiCache (cache), Redshift (data warehouse) |
+| Rede | VPC, Route 53 (DNS), CloudFront (CDN), ELB, Direct Connect, VPN |
+| Monitoramento | CloudWatch (métricas e alarmes), Trusted Advisor |
+| Migração | Snowball, DMS, Migration Hub, Application Migration Service |
+| IA / ML | SageMaker, Rekognition, Comprehend, Lex, Polly, Bedrock |
+
+## I Modelos de preço do EC2 {span=2}
+| Modelo | Quando usar | Desconto |
+|---|---|---|
+| On-Demand | Carga curta e imprevisível | Nenhum |
+| Reserved Instances | Carga estável por 1 ou 3 anos | Até 72% |
+| Savings Plans | Compromisso de gasto por hora, mais flexível | Até 72% |
+| Spot | Carga que tolera interrupção | Até 90% |
+| Dedicated Host | Licença por servidor ou compliance | Mais caro |
+
+## J Ferramentas de custo
+- **Pricing Calculator**: estima custo antes de criar.
+- **Cost Explorer**: analisa o gasto passado.
+- **Budgets**: alerta quando passa do limite.
+- **Cost and Usage Report**: relatório mais detalhado.
+- **Tags de alocação**: separam custo por projeto.
+- **Free Tier**: sempre grátis, 12 meses e trials.
+
+## K Planos de suporte {span=3}
+| Plano | Resposta em caso crítico | TAM | Trusted Advisor completo |
+|---|---|---|---|
+| Basic | — | no | no |
+| Developer | — | no | no |
+| Business | &lt; 1 h (produção fora do ar) | no | ok |
+| Enterprise On-Ramp | &lt; 30 min | warn Pool de TAMs | ok |
+| Enterprise | &lt; 15 min | ok Dedicado | ok |
+
+```callout info Dica de prova
+Leia o verbo da pergunta. &quot;Auditar chamadas de API&quot; = CloudTrail. &quot;Monitorar métricas&quot; = CloudWatch. &quot;Recomendações de custo e segurança&quot; = Trusted Advisor. &quot;Relatório de compliance&quot; = Artifact.
+```
+</textarea>
+<script>
+(() => {
+  const root = document.documentElement;
+  const cycle = (list, cur) => list[(list.indexOf(cur) + 1) % list.length];
+  const label = (btn, value) => {
+    const map = JSON.parse(btn.dataset.labels || '{}');
+    btn.textContent = map[value] || value;
+  };
+  const bind = (name, attr, values) => {
+    const btn = document.querySelector(`[data-am="${name}"]`);
+    if (!btn) return;
+    label(btn, root.getAttribute(attr));
+    btn.addEventListener('click', () => {
+      const next = cycle(values, root.getAttribute(attr));
+      root.setAttribute(attr, next);
+      label(btn, next);
+    });
+  };
+  bind('theme', 'data-theme', ['blueprint', 'shadcn']);
+  bind('mode', 'data-mode', ['auto', 'light', 'dark']);
+
+  const copyBtn = document.querySelector('[data-am="copy"]');
+  copyBtn?.addEventListener('click', async () => {
+    const text = document.getElementById('am-source').value;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      document.body.append(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    const original = copyBtn.textContent;
+    copyBtn.textContent = copyBtn.dataset.done;
+    setTimeout(() => { copyBtn.textContent = original; }, 1400);
+  });
+})();
+</script>
+</body>
+</html>

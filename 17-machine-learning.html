@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en" data-theme="blueprint" data-mode="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Answer me with HTML 0.2.2">
+<title>Machine Learning</title>
+<style>
+html[data-theme="blueprint"], html[data-theme="blueprint"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 0px;
+  --shadow: none;
+  --bw: 1.5px;
+  --head-font: var(--font-sans);
+  --bg: #f6f6f3;
+  --paper: #ffffff;
+  --ink: #16181d;
+  --ink-2: #4b5260;
+  --ink-3: #8b929e;
+  --line: #1d2026;
+  --line-2: #d6dae1;
+  --fill: #f3f5f8;
+  --accent: #1d5fbf;
+  --accent-bg: #e4ecf8;
+  --ok: #1d5fbf;
+  --ok-bg: #e4ecf8;
+  --err: #c62828;
+  --err-bg: #fbeaea;
+  --warn: #a8620a;
+  --warn-bg: #fdf3e2;
+  --head-bg: #16181d;
+  --head-fg: #ffffff;
+}
+html[data-theme="blueprint"][data-mode="dark"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="blueprint"][data-mode="auto"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+}
+
+html[data-theme="shadcn"], html[data-theme="shadcn"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 8px;
+  --shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --bw: 1px;
+  --head-font: var(--font-sans);
+  --bg: #fafafa;
+  --paper: #ffffff;
+  --ink: #09090b;
+  --ink-2: #71717a;
+  --ink-3: #a1a1aa;
+  --line: #e4e4e7;
+  --line-2: #f0f0f2;
+  --fill: #f4f4f5;
+  --accent: #2563eb;
+  --accent-bg: #eff6ff;
+  --ok: #16a34a;
+  --ok-bg: #f0fdf4;
+  --err: #dc2626;
+  --err-bg: #fef2f2;
+  --warn: #d97706;
+  --warn-bg: #fffbeb;
+  --head-bg: #18181b;
+  --head-fg: #fafafa;
+}
+html[data-theme="shadcn"][data-mode="dark"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="shadcn"][data-mode="auto"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+}
+
+/* Answer me with HTML base — 只引用主题变量，禁止写死颜色（主题 token 见 themes/index.js） */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans); font-size: 14px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+code, pre, kbd { font-family: var(--font-mono); }
+
+/* ── 工具栏 ─────────────────────────────── */
+.am-toolbar {
+  position: fixed; top: 12px; right: 12px; z-index: 10; display: flex; gap: 6px;
+}
+.am-btn {
+  font: 12px/1 var(--font-sans); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius); padding: 7px 10px; cursor: pointer;
+}
+.am-btn:hover { border-color: var(--ink-3); }
+.am-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── 页头 ───────────────────────────────── */
+.am-head { margin: 0 0 20px; padding-right: 260px; }
+.am-head h1 { margin: 0; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; }
+.am-sub { margin: 4px 0 0; color: var(--ink-2); }
+.am-head-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
+.am-head-meta b { font-family: var(--font-mono); font-weight: 400; color: var(--ink-3); margin-right: 6px; }
+.am-intro { margin-top: 12px; max-width: 80ch; }
+
+/* ── sheet 图纸板 ────────────────────────── */
+.am-sheet { max-width: 1680px; margin: 0 auto; padding: 32px 28px 40px; }
+.am-frame { position: relative; }
+.am-grid {
+  display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 20px; align-items: start;
+}
+.am-ruler { display: none; }
+html[data-theme="blueprint"] .am-frame { border: 1px solid var(--line); padding: 30px; }
+html[data-theme="blueprint"] .am-frame::before {
+  content: ""; position: absolute; inset: 18px; border: 1px solid var(--line); pointer-events: none;
+}
+html[data-theme="blueprint"] .am-ruler {
+  display: flex; position: absolute; font: 10px/1 var(--font-mono); color: var(--ink-3);
+}
+.am-ruler span { flex: 1; display: flex; align-items: center; justify-content: center; }
+.am-ruler--top, .am-ruler--bottom { left: 18px; right: 18px; height: 18px; }
+.am-ruler--top { top: 0; }
+.am-ruler--bottom { bottom: 0; }
+.am-ruler--left, .am-ruler--right { top: 18px; bottom: 18px; width: 18px; flex-direction: column; }
+.am-ruler--left { left: 0; }
+.am-ruler--right { right: 0; }
+.am-ruler--top span + span, .am-ruler--bottom span + span { border-left: 1px solid var(--line); }
+.am-ruler--left span + span, .am-ruler--right span + span { border-top: 1px solid var(--line); }
+
+/* ── 面板 ───────────────────────────────── */
+.am-panel {
+  background: var(--paper); border: var(--bw) solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); min-width: 0; overflow: hidden;
+}
+.am-panel-head {
+  display: flex; align-items: stretch; gap: 0; border-bottom: var(--bw) solid var(--line); min-height: 34px;
+}
+.am-panel-id {
+  display: flex; align-items: center; justify-content: center; min-width: 34px; padding: 0 8px;
+  background: var(--head-bg); color: var(--head-fg); font-weight: 600; font-size: 14px;
+}
+html[data-theme="shadcn"] .am-panel-id { border-radius: 6px; min-width: 24px; height: 24px; margin: 9px 0 9px 14px; font-size: 12px; }
+html[data-theme="shadcn"] .am-panel-head { border-bottom-width: 1px; }
+.am-panel-head h2 { margin: 0; padding: 7px 12px; font-size: 15px; font-weight: 600; flex: 1; display: flex; align-items: center; }
+.am-panel-meta { align-self: center; padding: 0 12px; font: 11px/1.3 var(--font-mono); color: var(--ink-2); text-align: right; }
+.am-panel-body { padding: 14px 16px 16px; }
+.am-panel-body > * + * { margin-top: 12px; }
+
+/* ── Markdown 正文 ───────────────────────── */
+.am-md > :first-child { margin-top: 0; }
+.am-md > :last-child { margin-bottom: 0; }
+.am-md p { margin: 0 0 8px; }
+.am-md ul, .am-md ol { margin: 0 0 8px; padding-left: 20px; }
+.am-md li + li { margin-top: 3px; }
+.am-md h3, .am-md h4 { margin: 14px 0 6px; font-size: 13px; }
+.am-md a { color: var(--accent); }
+.am-md blockquote { margin: 0 0 8px; padding: 2px 12px; border-left: 3px solid var(--line-2); color: var(--ink-2); }
+.am-md :not(pre) > code { font-size: 0.9em; background: var(--fill); padding: 1px 5px; border-radius: 4px; }
+.am-md hr { border: 0; border-top: 1px solid var(--line-2); margin: 12px 0; }
+.am-md table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.am-md th {
+  text-align: left; font: 11px/1.3 var(--font-mono); color: var(--ink-2); font-weight: 400;
+  padding: 6px 10px; border-bottom: 1px solid var(--line-2);
+}
+.am-md td { padding: 7px 10px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+.am-md tbody tr:nth-child(even) td { background: var(--fill); }
+.am-table-wrap { overflow-x: auto; }
+.am-code {
+  margin: 0; padding: 12px 14px; background: var(--fill); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow-x: auto; font-size: 12.5px; line-height: 1.5;
+}
+
+/* ── 状态徽章 ok / no / warn ──────────────── */
+.am-status { white-space: nowrap; font-weight: 500; }
+.am-status--ok { color: var(--ok); }
+.am-status--no { color: var(--err); }
+.am-status--warn { color: var(--warn); }
+.am-status-icon { display: inline-block; width: 1.1em; font-weight: 700; }
+
+/* ── callout ─────────────────────────────── */
+.am-callout {
+  border: 1px solid var(--line-2); border-left: 3px solid var(--accent); background: var(--accent-bg);
+  padding: 10px 14px; border-radius: var(--radius);
+}
+.am-callout--ok { border-left-color: var(--ok); background: var(--ok-bg); }
+.am-callout--warn { border-left-color: var(--warn); background: var(--warn-bg); }
+.am-callout--err { border-left-color: var(--err); background: var(--err-bg); }
+.am-callout-title { font-weight: 600; margin-bottom: 4px; }
+
+/* ── kv 标题栏格 ─────────────────────────── */
+.am-kv {
+  display: grid; grid-template-columns: repeat(var(--kv-cols, 2), minmax(0, 1fr)); margin: 0;
+  border-top: var(--bw) solid var(--line); border-left: var(--bw) solid var(--line);
+}
+.am-kv-cell { border-right: var(--bw) solid var(--line); border-bottom: var(--bw) solid var(--line); padding: 6px 10px 8px; min-width: 0; }
+.am-kv-cell--wide { grid-column: 1 / -1; }
+.am-kv dt { font: 11px/1.4 var(--font-mono); color: var(--ink-2); }
+.am-kv dd { margin: 2px 0 0; font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
+.am-kv-cell--wide dd { font-size: 17px; font-weight: 600; }
+html[data-theme="shadcn"] .am-kv { border-color: var(--line); border-radius: var(--radius); overflow: hidden; }
+
+/* ── timeline ────────────────────────────── */
+.am-timeline { list-style: none; margin: 0; padding: 0; }
+.am-timeline--h { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); padding-top: 4px; }
+.am-timeline--h li { position: relative; text-align: center; padding: 0 6px; }
+.am-timeline--h li::before {
+  content: ""; position: absolute; top: 31px; left: 0; right: 0; border-top: var(--bw) solid var(--line);
+}
+.am-timeline--h li:first-child::before { left: 50%; }
+.am-timeline--h li:last-child::before { right: 50%; }
+.am-tl-when { display: block; font-size: 15px; font-weight: 500; height: 24px; }
+.am-tl-dot {
+  position: relative; display: block; width: 11px; height: 11px; margin: 2px auto 8px;
+  border: var(--bw) solid var(--line); border-radius: 50%; background: var(--paper);
+}
+.am-tl-item--hi .am-tl-dot { background: var(--accent); border-color: var(--accent); }
+.am-tl-title { display: block; font-size: 12.5px; font-weight: 500; }
+.am-tl-text { display: block; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+.am-timeline--v li { position: relative; padding: 0 0 14px 22px; }
+.am-timeline--v li::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: -6px; border-left: var(--bw) solid var(--line-2); }
+.am-timeline--v li:last-child::before { display: none; }
+.am-timeline--v .am-tl-dot { position: absolute; left: 0; top: 4px; margin: 0; }
+.am-timeline--v .am-tl-when { display: inline; height: auto; font: 12px var(--font-mono); color: var(--ink-2); margin-right: 8px; }
+.am-timeline--v .am-tl-title { display: inline; font-size: 14px; }
+.am-timeline--v .am-tl-text { margin-top: 2px; }
+
+/* ── annot 句子标注 ──────────────────────── */
+.am-annot + .am-annot { border-top: 1px solid var(--line-2); padding-top: 12px; }
+.am-annot-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.am-annot-meta { font: 11px var(--font-mono); font-weight: 400; color: var(--ink-2); }
+.am-annot-scroll { overflow-x: auto; }
+.am-annot-line {
+  position: relative; display: inline-block; white-space: pre; font: 14px/1.6 var(--font-mono);
+  padding-bottom: calc(var(--rows, 0) * 17px + 14px);
+}
+.am-annot-line--wrap { display: block; white-space: normal; padding-bottom: 10px; }
+.am-annot-line--wrap .am-seg { white-space: nowrap; }
+.am-seg { position: relative; }
+.am-seg::after {
+  content: ""; position: absolute; left: 1px; right: 1px; top: calc(100% + 1px); height: 5px;
+  border: 1px solid var(--accent); border-top: 0;
+}
+.am-seg-n {
+  position: absolute; left: 0; top: calc(100% + 8px + var(--row, 0) * 17px);
+  font: 11px/16px var(--font-sans); color: var(--accent); white-space: nowrap;
+}
+.am-seg--err { color: var(--err); }
+.am-seg--err::after { border-color: var(--err); }
+.am-seg--err .am-seg-n { color: var(--err); }
+.am-annot-caption { font-size: 12px; color: var(--ink-2); }
+
+/* ── limits 限值条 ───────────────────────── */
+.am-lim + .am-lim { margin-top: 14px; }
+.am-lim-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; margin-bottom: 4px; }
+.am-lim-val { font: 12px var(--font-mono); color: var(--accent); white-space: nowrap; }
+.am-lim-track { position: relative; height: 12px; border: 1px solid var(--line-2); background: var(--fill); border-radius: calc(var(--radius) / 2); }
+.am-lim-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent-bg); border-right: 1px solid var(--accent); }
+.am-lim-mark { position: absolute; top: -4px; bottom: -4px; border-left: 2px solid var(--accent); }
+.am-lim.is-over .am-lim-fill { background: var(--err-bg); border-right-color: var(--err); }
+.am-lim.is-over .am-lim-val { color: var(--err); }
+.am-lim-ticks { position: relative; height: 16px; font: 10px/16px var(--font-mono); color: var(--ink-3); }
+.am-lim-ticks span { position: absolute; transform: translateX(-50%); }
+.am-lim-ticks span:first-child { transform: none; }
+.am-lim-note { font-size: 11px; color: var(--ink-2); margin-left: 6px; }
+
+/* ── tree 结构树 ─────────────────────────── */
+.am-tree { font-size: 13px; }
+.am-tree-root { display: flex; justify-content: center; position: relative; padding-bottom: 18px; }
+.am-tree-root::after { content: ""; position: absolute; bottom: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-root--solo { padding-bottom: 12px; }
+.am-tree-root--solo::after { display: none; }
+.am-tree-box {
+  border: var(--bw) solid var(--line); background: var(--paper); padding: 6px 14px; text-align: center;
+  border-radius: var(--radius); font-weight: 600;
+}
+.am-tree-box small { display: block; font-weight: 400; color: var(--ink-2); font-size: 12px; }
+.am-tree-box--root { background: var(--accent-bg); font-size: 15px; padding: 8px 28px; }
+.am-tree-cols { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); }
+.am-tree-col { position: relative; padding: 18px 8px 0; min-width: 0; }
+.am-tree-col::before { content: ""; position: absolute; top: 0; left: 0; right: 0; border-top: var(--bw) solid var(--line); }
+.am-tree-col:first-child::before { left: 50%; }
+.am-tree-col:last-child::before { right: 50%; }
+.am-tree-col::after { content: ""; position: absolute; top: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-list, .am-tree-list ul { list-style: none; margin: 0; padding: 0; }
+.am-tree-col > .am-tree-list { margin: 8px 0 0 14px; }
+.am-tree-list ul { margin-left: 16px; }
+.am-tree-list li { position: relative; padding: 3px 0 3px 18px; }
+.am-tree-list li::before { content: ""; position: absolute; left: 0; top: 0.95em; width: 12px; border-top: 1px solid var(--ink-3); }
+.am-tree-list li::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1px solid var(--ink-3); }
+.am-tree-list li:last-child::after { bottom: auto; height: 0.95em; }
+.am-tree-tag { font: 11px var(--font-mono); color: var(--ink-3); margin-right: 4px; }
+.am-tree code { font: 12px var(--font-mono); }
+.am-tree-sub { display: block; font-size: 11.5px; color: var(--ink-2); }
+.am-tree-hi > .am-tree-label { color: var(--accent); font-weight: 600; }
+
+/* ── 图（flow / sequence）───────────────── */
+.am-diagram { margin: 0; overflow-x: auto; text-align: center; }
+.am-diagram svg { max-width: 100%; height: auto; font-family: var(--font-sans); }
+.am-diagram text { fill: var(--ink); font-size: 13px; }
+.am-node-shape { fill: var(--paper); stroke: var(--line); stroke-width: var(--bw); }
+.am-node--hi .am-node-shape { fill: var(--accent-bg); stroke: var(--accent); }
+.am-node--hi text { fill: var(--accent); font-weight: 600; }
+.am-edge { fill: none; stroke: var(--ink-2); stroke-width: 1.3; }
+.am-edge--dashed { stroke-dasharray: 5 4; }
+.am-arrow { fill: var(--ink-2); }
+.am-edge-label rect { fill: var(--paper); }
+.am-diagram .am-edge-label text { fill: var(--accent); font-size: 11.5px; }
+.am-cluster { fill: var(--fill); stroke: var(--line-2); stroke-width: 1; stroke-dasharray: 4 3; }
+.am-diagram .am-cluster-label { fill: var(--ink-2); font: 11px var(--font-mono); }
+.am-lifeline { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 4 4; }
+.am-actor { fill: var(--paper); stroke: var(--line); stroke-width: var(--bw); }
+.am-note { fill: var(--warn-bg); stroke: var(--warn); stroke-width: 1; }
+.am-diagram .am-step { fill: var(--ink-3); font: 10px var(--font-mono); }
+
+/* ── doc 线性讲解 ────────────────────────── */
+.am-doc { max-width: 1120px; margin: 0 auto; padding: 40px 28px 64px; }
+.am-doc-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.am-doc-layout--notoc { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
+.am-toc { position: sticky; top: 24px; font-size: 13px; }
+.am-toc a { display: block; color: var(--ink-2); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid var(--line-2); }
+.am-toc a:hover { color: var(--ink); border-left-color: var(--accent); }
+.am-doc-body > .am-panel + .am-panel { margin-top: 20px; }
+
+/* ── 响应式与打印 ─────────────────────────── */
+@media (max-width: 1100px) {
+  .am-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .am-grid > .am-panel { grid-column: auto !important; }
+  .am-grid > .am-panel.am-span-wide { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 760px) {
+  .am-sheet, .am-doc { padding: 56px 12px 24px; }
+  .am-head { padding-right: 0; }
+  .am-grid { grid-template-columns: minmax(0, 1fr); }
+  .am-grid > .am-panel.am-span-wide { grid-column: auto !important; }
+  html[data-theme="blueprint"] .am-frame { padding: 0; border: 0; }
+  html[data-theme="blueprint"] .am-frame::before, html[data-theme="blueprint"] .am-ruler { display: none; }
+  .am-doc-layout { grid-template-columns: minmax(0, 1fr); }
+  .am-toc { position: static; }
+  .am-timeline--h { grid-template-columns: minmax(0, 1fr); }
+  .am-tree-cols { grid-template-columns: minmax(0, 1fr); }
+}
+.am-colophon { text-align: center; padding: 0 0 28px; font: 11px var(--font-mono); color: var(--ink-3); }
+
+@media print {
+  .am-toolbar { display: none; }
+  body { background: var(--paper); }
+  .am-panel { break-inside: avoid; box-shadow: none; }
+}
+.am-panel--bare { border: 0; background: transparent; box-shadow: none; }
+.am-panel--bare > .am-panel-body { padding: 0; }
+.am-panel--bare .am-kv { background: var(--paper); }
+
+</style>
+</head>
+<body>
+<div class="am-toolbar">
+<button class="am-btn" type="button" data-am="theme" data-labels="{&quot;blueprint&quot;:&quot;Theme: Blueprint&quot;,&quot;shadcn&quot;:&quot;Theme: Cards&quot;}">Theme: Blueprint</button>
+<button class="am-btn" type="button" data-am="mode" data-labels="{&quot;auto&quot;:&quot;Mode: Auto&quot;,&quot;light&quot;:&quot;Mode: Light&quot;,&quot;dark&quot;:&quot;Mode: Dark&quot;}">Mode: Auto</button>
+<button class="am-btn" type="button" data-am="copy" data-done="Copied ✓">Copy source</button>
+</div>
+<main class="am-sheet">
+<header class="am-head"><h1>Machine Learning</h1><p class="am-sub">Seção 17 do CLF-C02 — serviços de IA, SageMaker e IA generativa</p><div class="am-head-meta"><span><b>exam</b>Domínio 3 · Tecnologia e serviços (34%)</span></div><div class="am-intro am-md"><div class="am-md"><p>A AWS oferece IA em <strong>três níveis</strong>. Os serviços <strong>prontos</strong> têm uma API. O <strong>SageMaker</strong> constrói o seu modelo. A <strong>IA generativa</strong> usa Bedrock e Amazon Q. A prova pede só <strong>o gatilho</strong>. Saiba qual serviço resolve qual problema.</p>
+</div></div></header>
+<div class="am-frame">
+<div class="am-ruler am-ruler--top" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div><div class="am-ruler am-ruler--bottom" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div><div class="am-ruler am-ruler--left" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div><div class="am-ruler am-ruler--right" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+<div class="am-grid" style="--cols: 3">
+<section class="am-panel am-span-wide" id="panel-A" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">A</span><h2>Três níveis de IA</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Nível</th>
+<th>Serviços</th>
+<th>Quando usar</th>
+<th>Esforço</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>IA pronta</strong> (APIs)</td>
+<td>Rekognition, Transcribe, Polly, Translate, Comprehend, Textract, Lex e outros</td>
+<td>O problema é comum e você não quer treinar modelo</td>
+<td>Baixo</td>
+</tr>
+<tr>
+<td><strong>ML personalizado</strong></td>
+<td><strong>SageMaker</strong></td>
+<td>Você precisa de um modelo próprio</td>
+<td>Alto</td>
+</tr>
+<tr>
+<td><strong>IA generativa</strong></td>
+<td><strong>Bedrock</strong>, <strong>Amazon Q</strong></td>
+<td>Gerar texto, imagem e código, ou conversar com dados</td>
+<td>Baixo a médio</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-B" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">B</span><h2>Imagem, vídeo e documento</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>O que faz</th>
+<th>Gatilho de prova</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Rekognition</strong></td>
+<td>Analisa <strong>imagens e vídeos</strong>: objetos, pessoas, texto, rostos, celebridades e moderação de conteúdo</td>
+<td>&quot;Reconhecimento facial&quot;, &quot;detectar objetos&quot;, &quot;moderar conteúdo&quot;</td>
+</tr>
+<tr>
+<td><strong>Textract</strong></td>
+<td>Extrai <strong>texto, escrita à mão e dados</strong> de documentos escaneados, formulários e tabelas</td>
+<td>&quot;Extrair texto de PDF ou imagem&quot;, &quot;formulário&quot;, &quot;nota fiscal&quot;</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-C" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">C</span><h2>Voz e idioma</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>O que faz</th>
+<th>Gatilho de prova</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Transcribe</strong></td>
+<td><strong>Voz em texto</strong> (reconhecimento automático de fala). Pode ocultar dados sensíveis</td>
+<td>&quot;Legenda&quot;, &quot;transcrição de áudio&quot;</td>
+</tr>
+<tr>
+<td><strong>Polly</strong></td>
+<td><strong>Texto em voz</strong></td>
+<td>&quot;Falar o texto&quot;, &quot;voz natural&quot;</td>
+</tr>
+<tr>
+<td><strong>Translate</strong></td>
+<td><strong>Traduz</strong> textos com idiomas naturais</td>
+<td>&quot;Localização&quot;, &quot;traduzir&quot;</td>
+</tr>
+<tr>
+<td><strong>Comprehend</strong></td>
+<td><strong>Processamento de linguagem natural</strong>: sentimento, entidades, frases-chave e idioma</td>
+<td>&quot;Sentimento&quot;, &quot;analisar texto&quot;, &quot;NLP&quot;</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-D" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">D</span><h2>Conversa e busca</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>O que faz</th>
+<th>Gatilho de prova</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Lex</strong></td>
+<td>Cria <strong>chatbots</strong> de voz e texto. Usa a mesma tecnologia da <strong>Alexa</strong></td>
+<td>&quot;Chatbot&quot;, &quot;assistente virtual&quot;</td>
+</tr>
+<tr>
+<td><strong>Connect</strong></td>
+<td><strong>Central de atendimento</strong> virtual na nuvem</td>
+<td>&quot;Call center&quot;, &quot;contact center&quot;</td>
+</tr>
+<tr>
+<td><strong>Kendra</strong></td>
+<td><strong>Busca inteligente</strong> em documentos. Responde perguntas em linguagem natural</td>
+<td>&quot;Busca em documentos corporativos&quot;</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-E" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">E</span><h2>Previsão, recomendação e anomalia</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Serviço</th>
+<th>O que faz</th>
+<th>Gatilho de prova</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Forecast</strong></td>
+<td>Prevê <strong>séries temporais</strong>: demanda, estoque, receita</td>
+<td>&quot;Previsão de demanda&quot;</td>
+</tr>
+<tr>
+<td><strong>Personalize</strong></td>
+<td><strong>Recomendações</strong> personalizadas em tempo real</td>
+<td>&quot;Recomendar produtos&quot;, &quot;personalização&quot;</td>
+</tr>
+<tr>
+<td><strong>Fraud Detector</strong></td>
+<td>Detecta <strong>fraude</strong> online com ML</td>
+<td>&quot;Fraude&quot;, &quot;contas falsas&quot;</td>
+</tr>
+<tr>
+<td><strong>Lookout</strong></td>
+<td>Detecta <strong>anomalias</strong> em métricas, equipamentos e imagens industriais</td>
+<td>&quot;Defeito em peça&quot;, &quot;anomalia&quot;</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-F" style="grid-column: span 2">
+<header class="am-panel-head"><span class="am-panel-id">F</span><h2>SageMaker</h2></header>
+<div class="am-panel-body"><figure class="am-diagram am-flow"><svg viewBox="0 0 967 63" width="967" height="63" role="img" aria-label="流程图：Dados no S3、SageMaker、Modelo、Endpoint、Aplicação" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am1-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="am-arrow" d="M0,0 L10,5 L0,10 z"/></marker></defs><g></g><g><path class="am-edge" d="M120.8,31.5 L156.1,31.5 Q191.4,31.5 226.7,31.5 L262,31.5" marker-end="url(#am1-arrow)"/><g class="am-edge-label"><rect x="144.8" y="22.5" width="93.3" height="18" rx="3"/><text x="191.4" y="31.5" text-anchor="middle" dominant-baseline="central">prepara e treina</text></g><path class="am-edge" d="M357.9,31.5 L380.7,31.5 Q403.5,31.5 426.2,31.5 L449,31.5" marker-end="url(#am1-arrow)"/><g class="am-edge-label"><rect x="381.9" y="22.5" width="43.1" height="18" rx="3"/><text x="403.5" y="31.5" text-anchor="middle" dominant-baseline="central">avalia</text></g><path class="am-edge" d="M521.5,31.5 L547.7,31.5 Q573.8,31.5 600,31.5 L626.2,31.5" marker-end="url(#am1-arrow)"/><g class="am-edge-label"><rect x="545.5" y="22.5" width="56.7" height="18" rx="3"/><text x="573.8" y="31.5" text-anchor="middle" dominant-baseline="central">implanta</text></g><path class="am-edge" d="M707.7,31.5 L746.8,31.5 Q785.8,31.5 824.9,31.5 L863.9,31.5" marker-end="url(#am1-arrow)"/><g class="am-edge-label"><rect x="731.7" y="22.5" width="108.2" height="18" rx="3"/><text x="785.8" y="31.5" text-anchor="middle" dominant-baseline="central">devolve previsões</text></g></g><g><g class="am-node am-node--rect"><rect class="am-node-shape" x="14" y="14" width="106.8" height="35" rx="3"/><text x="67.4" y="31.5" text-anchor="middle" dominant-baseline="central">Dados no S3</text></g><g class="am-node am-node--rect am-node--hi"><rect class="am-node-shape" x="262" y="14" width="95.9" height="35" rx="3"/><text x="310" y="31.5" text-anchor="middle" dominant-baseline="central">SageMaker</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="449" y="14" width="72.5" height="35" rx="3"/><text x="485.3" y="31.5" text-anchor="middle" dominant-baseline="central">Modelo</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="626.2" y="14" width="81.6" height="35" rx="3"/><text x="667" y="31.5" text-anchor="middle" dominant-baseline="central">Endpoint</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="863.9" y="14" width="88.8" height="35" rx="3"/><text x="908.4" y="31.5" text-anchor="middle" dominant-baseline="central">Aplicação</text></g></g></svg></figure>
+<div class="am-md"><p>O <strong>SageMaker</strong> é a plataforma para <strong>construir, treinar e implantar</strong> modelos de ML. Ele atende <strong>cientistas de dados</strong> e <strong>desenvolvedores</strong>.</p>
+</div></div>
+</section>
+<section class="am-panel" id="panel-G">
+<header class="am-panel-head"><span class="am-panel-id">G</span><h2>Recursos do SageMaker</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li><strong>Ground Truth</strong>: rotula dados.</li>
+<li><strong>Canvas</strong>: ML <strong>sem código</strong>.</li>
+<li><strong>Clarify</strong>: detecta <strong>viés</strong> nos dados e no modelo.</li>
+<li><strong>JumpStart</strong>: modelos <strong>pré-treinados</strong>.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-H" style="grid-column: span 2">
+<header class="am-panel-head"><span class="am-panel-id">H</span><h2>Bedrock</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li><strong>Bedrock</strong> dá acesso a <strong>modelos de fundação</strong> (FMs) por <strong>API</strong>, sem gerenciar servidores.</li>
+<li>Os modelos vêm de várias empresas, como <strong>Amazon</strong>, <strong>Anthropic</strong>, <strong>Meta</strong> e <strong>Mistral</strong>.</li>
+<li>Você <strong>personaliza</strong> os modelos com seus dados, sem treinar do zero.</li>
+<li><strong>Knowledge Bases</strong> liga o modelo aos <strong>seus documentos</strong> (RAG).</li>
+<li><strong>Agents</strong> executam tarefas em várias etapas.</li>
+<li><strong>Guardrails</strong> filtram conteúdo indesejado.</li>
+<li>Gatilho: &quot;IA generativa&quot;, &quot;modelo de fundação&quot;, &quot;chamar um LLM por API&quot;.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel" id="panel-I">
+<header class="am-panel-head"><span class="am-panel-id">I</span><h2>Amazon Q</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li><strong>Amazon Q Business</strong>: assistente de IA que responde sobre os <strong>dados da empresa</strong>.</li>
+<li><strong>Amazon Q Developer</strong>: assistente para <strong>código</strong>. Sugere, explica e depura. Incorporou o <strong>CodeWhisperer</strong>.</li>
+<li>Gatilho: &quot;assistente de código&quot; ou &quot;assistente corporativo&quot;.</li>
+</ul>
+</div>
+<div class="am-callout am-callout--warn" role="note"><div class="am-callout-title">Pegadinhas de prova</div><div class="am-callout-body am-md"><ul>
+<li>&quot;Imagem ou vídeo&quot; = <strong>Rekognition</strong>. &quot;Documento escaneado&quot; = <strong>Textract</strong>.</li>
+<li>&quot;Voz em texto&quot; = <strong>Transcribe</strong>. &quot;Texto em voz&quot; = <strong>Polly</strong>. &quot;Traduzir&quot; = <strong>Translate</strong>.</li>
+<li>&quot;Sentimento e NLP&quot; = <strong>Comprehend</strong>. &quot;Chatbot&quot; = <strong>Lex</strong>. &quot;Call center&quot; = <strong>Connect</strong>.</li>
+<li>&quot;Busca inteligente em documentos&quot; = <strong>Kendra</strong>. &quot;Recomendações&quot; = <strong>Personalize</strong>.</li>
+<li>&quot;Previsão de séries temporais&quot; = <strong>Forecast</strong>. &quot;Fraude&quot; = <strong>Fraud Detector</strong>.</li>
+<li>&quot;Construir, treinar e implantar modelo próprio&quot; = <strong>SageMaker</strong>.</li>
+<li>&quot;Modelos de fundação por API&quot; = <strong>Bedrock</strong>. &quot;Assistente de código&quot; = <strong>Amazon Q Developer</strong> (antes, CodeWhisperer).</li>
+</ul>
+</div></div></div>
+</section>
+</div>
+</div>
+</main>
+<footer class="am-colophon">Generated by Answer me with HTML 0.2.2 · 2026-10-10 18:23</footer>
+<textarea id="am-source" hidden readonly aria-hidden="true">---
+title: Machine Learning
+subtitle: Seção 17 do CLF-C02 — serviços de IA, SageMaker e IA generativa
+cols: 3
+exam: Domínio 3 · Tecnologia e serviços (34%)
+---
+A AWS oferece IA em **três níveis**. Os serviços **prontos** têm uma API. O **SageMaker** constrói o seu modelo. A **IA generativa** usa Bedrock e Amazon Q. A prova pede só **o gatilho**. Saiba qual serviço resolve qual problema.
+
+## A Três níveis de IA {span=3}
+| Nível | Serviços | Quando usar | Esforço |
+|---|---|---|---|
+| **IA pronta** (APIs) | Rekognition, Transcribe, Polly, Translate, Comprehend, Textract, Lex e outros | O problema é comum e você não quer treinar modelo | Baixo |
+| **ML personalizado** | **SageMaker** | Você precisa de um modelo próprio | Alto |
+| **IA generativa** | **Bedrock**, **Amazon Q** | Gerar texto, imagem e código, ou conversar com dados | Baixo a médio |
+
+## B Imagem, vídeo e documento {span=3}
+| Serviço | O que faz | Gatilho de prova |
+|---|---|---|
+| **Rekognition** | Analisa **imagens e vídeos**: objetos, pessoas, texto, rostos, celebridades e moderação de conteúdo | &quot;Reconhecimento facial&quot;, &quot;detectar objetos&quot;, &quot;moderar conteúdo&quot; |
+| **Textract** | Extrai **texto, escrita à mão e dados** de documentos escaneados, formulários e tabelas | &quot;Extrair texto de PDF ou imagem&quot;, &quot;formulário&quot;, &quot;nota fiscal&quot; |
+
+## C Voz e idioma {span=3}
+| Serviço | O que faz | Gatilho de prova |
+|---|---|---|
+| **Transcribe** | **Voz em texto** (reconhecimento automático de fala). Pode ocultar dados sensíveis | &quot;Legenda&quot;, &quot;transcrição de áudio&quot; |
+| **Polly** | **Texto em voz** | &quot;Falar o texto&quot;, &quot;voz natural&quot; |
+| **Translate** | **Traduz** textos com idiomas naturais | &quot;Localização&quot;, &quot;traduzir&quot; |
+| **Comprehend** | **Processamento de linguagem natural**: sentimento, entidades, frases-chave e idioma | &quot;Sentimento&quot;, &quot;analisar texto&quot;, &quot;NLP&quot; |
+
+## D Conversa e busca {span=3}
+| Serviço | O que faz | Gatilho de prova |
+|---|---|---|
+| **Lex** | Cria **chatbots** de voz e texto. Usa a mesma tecnologia da **Alexa** | &quot;Chatbot&quot;, &quot;assistente virtual&quot; |
+| **Connect** | **Central de atendimento** virtual na nuvem | &quot;Call center&quot;, &quot;contact center&quot; |
+| **Kendra** | **Busca inteligente** em documentos. Responde perguntas em linguagem natural | &quot;Busca em documentos corporativos&quot; |
+
+## E Previsão, recomendação e anomalia {span=3}
+| Serviço | O que faz | Gatilho de prova |
+|---|---|---|
+| **Forecast** | Prevê **séries temporais**: demanda, estoque, receita | &quot;Previsão de demanda&quot; |
+| **Personalize** | **Recomendações** personalizadas em tempo real | &quot;Recomendar produtos&quot;, &quot;personalização&quot; |
+| **Fraud Detector** | Detecta **fraude** online com ML | &quot;Fraude&quot;, &quot;contas falsas&quot; |
+| **Lookout** | Detecta **anomalias** em métricas, equipamentos e imagens industriais | &quot;Defeito em peça&quot;, &quot;anomalia&quot; |
+
+## F SageMaker {span=2}
+```flow LR
+Dados no S3 -&gt; *SageMaker: prepara e treina
+SageMaker -&gt; Modelo: avalia
+Modelo -&gt; Endpoint: implanta
+Endpoint -&gt; Aplicação: devolve previsões
+```
+O **SageMaker** é a plataforma para **construir, treinar e implantar** modelos de ML. Ele atende **cientistas de dados** e **desenvolvedores**.
+
+## G Recursos do SageMaker {span=1}
+- **Ground Truth**: rotula dados.
+- **Canvas**: ML **sem código**.
+- **Clarify**: detecta **viés** nos dados e no modelo.
+- **JumpStart**: modelos **pré-treinados**.
+
+## H Bedrock {span=2}
+- **Bedrock** dá acesso a **modelos de fundação** (FMs) por **API**, sem gerenciar servidores.
+- Os modelos vêm de várias empresas, como **Amazon**, **Anthropic**, **Meta** e **Mistral**.
+- Você **personaliza** os modelos com seus dados, sem treinar do zero.
+- **Knowledge Bases** liga o modelo aos **seus documentos** (RAG).
+- **Agents** executam tarefas em várias etapas.
+- **Guardrails** filtram conteúdo indesejado.
+- Gatilho: &quot;IA generativa&quot;, &quot;modelo de fundação&quot;, &quot;chamar um LLM por API&quot;.
+
+## I Amazon Q {span=1}
+- **Amazon Q Business**: assistente de IA que responde sobre os **dados da empresa**.
+- **Amazon Q Developer**: assistente para **código**. Sugere, explica e depura. Incorporou o **CodeWhisperer**.
+- Gatilho: &quot;assistente de código&quot; ou &quot;assistente corporativo&quot;.
+
+```callout warn Pegadinhas de prova
+- &quot;Imagem ou vídeo&quot; = **Rekognition**. &quot;Documento escaneado&quot; = **Textract**.
+- &quot;Voz em texto&quot; = **Transcribe**. &quot;Texto em voz&quot; = **Polly**. &quot;Traduzir&quot; = **Translate**.
+- &quot;Sentimento e NLP&quot; = **Comprehend**. &quot;Chatbot&quot; = **Lex**. &quot;Call center&quot; = **Connect**.
+- &quot;Busca inteligente em documentos&quot; = **Kendra**. &quot;Recomendações&quot; = **Personalize**.
+- &quot;Previsão de séries temporais&quot; = **Forecast**. &quot;Fraude&quot; = **Fraud Detector**.
+- &quot;Construir, treinar e implantar modelo próprio&quot; = **SageMaker**.
+- &quot;Modelos de fundação por API&quot; = **Bedrock**. &quot;Assistente de código&quot; = **Amazon Q Developer** (antes, CodeWhisperer).
+```
+</textarea>
+<script>
+(() => {
+  const root = document.documentElement;
+  const cycle = (list, cur) => list[(list.indexOf(cur) + 1) % list.length];
+  const label = (btn, value) => {
+    const map = JSON.parse(btn.dataset.labels || '{}');
+    btn.textContent = map[value] || value;
+  };
+  const bind = (name, attr, values) => {
+    const btn = document.querySelector(`[data-am="${name}"]`);
+    if (!btn) return;
+    label(btn, root.getAttribute(attr));
+    btn.addEventListener('click', () => {
+      const next = cycle(values, root.getAttribute(attr));
+      root.setAttribute(attr, next);
+      label(btn, next);
+    });
+  };
+  bind('theme', 'data-theme', ['blueprint', 'shadcn']);
+  bind('mode', 'data-mode', ['auto', 'light', 'dark']);
+
+  const copyBtn = document.querySelector('[data-am="copy"]');
+  copyBtn?.addEventListener('click', async () => {
+    const text = document.getElementById('am-source').value;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      document.body.append(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    const original = copyBtn.textContent;
+    copyBtn.textContent = copyBtn.dataset.done;
+    setTimeout(() => { copyBtn.textContent = original; }, 1400);
+  });
+})();
+</script>
+</body>
+</html>

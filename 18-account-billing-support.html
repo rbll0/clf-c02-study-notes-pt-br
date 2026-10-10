@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en" data-theme="blueprint" data-mode="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Answer me with HTML 0.2.2">
+<title>Contas, Billing e Suporte</title>
+<style>
+html[data-theme="blueprint"], html[data-theme="blueprint"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 0px;
+  --shadow: none;
+  --bw: 1.5px;
+  --head-font: var(--font-sans);
+  --bg: #f6f6f3;
+  --paper: #ffffff;
+  --ink: #16181d;
+  --ink-2: #4b5260;
+  --ink-3: #8b929e;
+  --line: #1d2026;
+  --line-2: #d6dae1;
+  --fill: #f3f5f8;
+  --accent: #1d5fbf;
+  --accent-bg: #e4ecf8;
+  --ok: #1d5fbf;
+  --ok-bg: #e4ecf8;
+  --err: #c62828;
+  --err-bg: #fbeaea;
+  --warn: #a8620a;
+  --warn-bg: #fdf3e2;
+  --head-bg: #16181d;
+  --head-fg: #ffffff;
+}
+html[data-theme="blueprint"][data-mode="dark"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="blueprint"][data-mode="auto"] {
+  --bg: #081322;
+  --paper: #0d1c31;
+  --ink: #e6edf7;
+  --ink-2: #a9b8cc;
+  --ink-3: #6b7f99;
+  --line: #c9d6e8;
+  --line-2: #23385a;
+  --fill: #12253f;
+  --accent: #6ea8ff;
+  --accent-bg: #16305a;
+  --ok: #6ea8ff;
+  --ok-bg: #16305a;
+  --err: #ff7070;
+  --err-bg: #3b1620;
+  --warn: #f0b14a;
+  --warn-bg: #3a2a10;
+  --head-bg: #e6edf7;
+  --head-fg: #081322;
+}
+}
+
+html[data-theme="shadcn"], html[data-theme="shadcn"][data-mode="light"] {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --radius: 8px;
+  --shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --bw: 1px;
+  --head-font: var(--font-sans);
+  --bg: #fafafa;
+  --paper: #ffffff;
+  --ink: #09090b;
+  --ink-2: #71717a;
+  --ink-3: #a1a1aa;
+  --line: #e4e4e7;
+  --line-2: #f0f0f2;
+  --fill: #f4f4f5;
+  --accent: #2563eb;
+  --accent-bg: #eff6ff;
+  --ok: #16a34a;
+  --ok-bg: #f0fdf4;
+  --err: #dc2626;
+  --err-bg: #fef2f2;
+  --warn: #d97706;
+  --warn-bg: #fffbeb;
+  --head-bg: #18181b;
+  --head-fg: #fafafa;
+}
+html[data-theme="shadcn"][data-mode="dark"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+@media (prefers-color-scheme: dark) {
+html[data-theme="shadcn"][data-mode="auto"] {
+  --bg: #09090b;
+  --paper: #121215;
+  --ink: #fafafa;
+  --ink-2: #a1a1aa;
+  --ink-3: #71717a;
+  --line: #27272a;
+  --line-2: #1c1c1f;
+  --fill: #18181b;
+  --accent: #60a5fa;
+  --accent-bg: #172554;
+  --ok: #4ade80;
+  --ok-bg: #052e16;
+  --err: #f87171;
+  --err-bg: #450a0a;
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --head-bg: #fafafa;
+  --head-fg: #18181b;
+}
+}
+
+/* Answer me with HTML base — 只引用主题变量，禁止写死颜色（主题 token 见 themes/index.js） */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-sans); font-size: 14px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+code, pre, kbd { font-family: var(--font-mono); }
+
+/* ── 工具栏 ─────────────────────────────── */
+.am-toolbar {
+  position: fixed; top: 12px; right: 12px; z-index: 10; display: flex; gap: 6px;
+}
+.am-btn {
+  font: 12px/1 var(--font-sans); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: var(--radius); padding: 7px 10px; cursor: pointer;
+}
+.am-btn:hover { border-color: var(--ink-3); }
+.am-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── 页头 ───────────────────────────────── */
+.am-head { margin: 0 0 20px; padding-right: 260px; }
+.am-head h1 { margin: 0; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; }
+.am-sub { margin: 4px 0 0; color: var(--ink-2); }
+.am-head-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 12px; color: var(--ink-2); }
+.am-head-meta b { font-family: var(--font-mono); font-weight: 400; color: var(--ink-3); margin-right: 6px; }
+.am-intro { margin-top: 12px; max-width: 80ch; }
+
+/* ── sheet 图纸板 ────────────────────────── */
+.am-sheet { max-width: 1680px; margin: 0 auto; padding: 32px 28px 40px; }
+.am-frame { position: relative; }
+.am-grid {
+  display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  gap: 20px; align-items: start;
+}
+.am-ruler { display: none; }
+html[data-theme="blueprint"] .am-frame { border: 1px solid var(--line); padding: 30px; }
+html[data-theme="blueprint"] .am-frame::before {
+  content: ""; position: absolute; inset: 18px; border: 1px solid var(--line); pointer-events: none;
+}
+html[data-theme="blueprint"] .am-ruler {
+  display: flex; position: absolute; font: 10px/1 var(--font-mono); color: var(--ink-3);
+}
+.am-ruler span { flex: 1; display: flex; align-items: center; justify-content: center; }
+.am-ruler--top, .am-ruler--bottom { left: 18px; right: 18px; height: 18px; }
+.am-ruler--top { top: 0; }
+.am-ruler--bottom { bottom: 0; }
+.am-ruler--left, .am-ruler--right { top: 18px; bottom: 18px; width: 18px; flex-direction: column; }
+.am-ruler--left { left: 0; }
+.am-ruler--right { right: 0; }
+.am-ruler--top span + span, .am-ruler--bottom span + span { border-left: 1px solid var(--line); }
+.am-ruler--left span + span, .am-ruler--right span + span { border-top: 1px solid var(--line); }
+
+/* ── 面板 ───────────────────────────────── */
+.am-panel {
+  background: var(--paper); border: var(--bw) solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); min-width: 0; overflow: hidden;
+}
+.am-panel-head {
+  display: flex; align-items: stretch; gap: 0; border-bottom: var(--bw) solid var(--line); min-height: 34px;
+}
+.am-panel-id {
+  display: flex; align-items: center; justify-content: center; min-width: 34px; padding: 0 8px;
+  background: var(--head-bg); color: var(--head-fg); font-weight: 600; font-size: 14px;
+}
+html[data-theme="shadcn"] .am-panel-id { border-radius: 6px; min-width: 24px; height: 24px; margin: 9px 0 9px 14px; font-size: 12px; }
+html[data-theme="shadcn"] .am-panel-head { border-bottom-width: 1px; }
+.am-panel-head h2 { margin: 0; padding: 7px 12px; font-size: 15px; font-weight: 600; flex: 1; display: flex; align-items: center; }
+.am-panel-meta { align-self: center; padding: 0 12px; font: 11px/1.3 var(--font-mono); color: var(--ink-2); text-align: right; }
+.am-panel-body { padding: 14px 16px 16px; }
+.am-panel-body > * + * { margin-top: 12px; }
+
+/* ── Markdown 正文 ───────────────────────── */
+.am-md > :first-child { margin-top: 0; }
+.am-md > :last-child { margin-bottom: 0; }
+.am-md p { margin: 0 0 8px; }
+.am-md ul, .am-md ol { margin: 0 0 8px; padding-left: 20px; }
+.am-md li + li { margin-top: 3px; }
+.am-md h3, .am-md h4 { margin: 14px 0 6px; font-size: 13px; }
+.am-md a { color: var(--accent); }
+.am-md blockquote { margin: 0 0 8px; padding: 2px 12px; border-left: 3px solid var(--line-2); color: var(--ink-2); }
+.am-md :not(pre) > code { font-size: 0.9em; background: var(--fill); padding: 1px 5px; border-radius: 4px; }
+.am-md hr { border: 0; border-top: 1px solid var(--line-2); margin: 12px 0; }
+.am-md table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.am-md th {
+  text-align: left; font: 11px/1.3 var(--font-mono); color: var(--ink-2); font-weight: 400;
+  padding: 6px 10px; border-bottom: 1px solid var(--line-2);
+}
+.am-md td { padding: 7px 10px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+.am-md tbody tr:nth-child(even) td { background: var(--fill); }
+.am-table-wrap { overflow-x: auto; }
+.am-code {
+  margin: 0; padding: 12px 14px; background: var(--fill); border: 1px solid var(--line-2);
+  border-radius: var(--radius); overflow-x: auto; font-size: 12.5px; line-height: 1.5;
+}
+
+/* ── 状态徽章 ok / no / warn ──────────────── */
+.am-status { white-space: nowrap; font-weight: 500; }
+.am-status--ok { color: var(--ok); }
+.am-status--no { color: var(--err); }
+.am-status--warn { color: var(--warn); }
+.am-status-icon { display: inline-block; width: 1.1em; font-weight: 700; }
+
+/* ── callout ─────────────────────────────── */
+.am-callout {
+  border: 1px solid var(--line-2); border-left: 3px solid var(--accent); background: var(--accent-bg);
+  padding: 10px 14px; border-radius: var(--radius);
+}
+.am-callout--ok { border-left-color: var(--ok); background: var(--ok-bg); }
+.am-callout--warn { border-left-color: var(--warn); background: var(--warn-bg); }
+.am-callout--err { border-left-color: var(--err); background: var(--err-bg); }
+.am-callout-title { font-weight: 600; margin-bottom: 4px; }
+
+/* ── kv 标题栏格 ─────────────────────────── */
+.am-kv {
+  display: grid; grid-template-columns: repeat(var(--kv-cols, 2), minmax(0, 1fr)); margin: 0;
+  border-top: var(--bw) solid var(--line); border-left: var(--bw) solid var(--line);
+}
+.am-kv-cell { border-right: var(--bw) solid var(--line); border-bottom: var(--bw) solid var(--line); padding: 6px 10px 8px; min-width: 0; }
+.am-kv-cell--wide { grid-column: 1 / -1; }
+.am-kv dt { font: 11px/1.4 var(--font-mono); color: var(--ink-2); }
+.am-kv dd { margin: 2px 0 0; font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
+.am-kv-cell--wide dd { font-size: 17px; font-weight: 600; }
+html[data-theme="shadcn"] .am-kv { border-color: var(--line); border-radius: var(--radius); overflow: hidden; }
+
+/* ── timeline ────────────────────────────── */
+.am-timeline { list-style: none; margin: 0; padding: 0; }
+.am-timeline--h { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); padding-top: 4px; }
+.am-timeline--h li { position: relative; text-align: center; padding: 0 6px; }
+.am-timeline--h li::before {
+  content: ""; position: absolute; top: 31px; left: 0; right: 0; border-top: var(--bw) solid var(--line);
+}
+.am-timeline--h li:first-child::before { left: 50%; }
+.am-timeline--h li:last-child::before { right: 50%; }
+.am-tl-when { display: block; font-size: 15px; font-weight: 500; height: 24px; }
+.am-tl-dot {
+  position: relative; display: block; width: 11px; height: 11px; margin: 2px auto 8px;
+  border: var(--bw) solid var(--line); border-radius: 50%; background: var(--paper);
+}
+.am-tl-item--hi .am-tl-dot { background: var(--accent); border-color: var(--accent); }
+.am-tl-title { display: block; font-size: 12.5px; font-weight: 500; }
+.am-tl-text { display: block; font-size: 12px; color: var(--ink-2); line-height: 1.45; }
+.am-timeline--v li { position: relative; padding: 0 0 14px 22px; }
+.am-timeline--v li::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: -6px; border-left: var(--bw) solid var(--line-2); }
+.am-timeline--v li:last-child::before { display: none; }
+.am-timeline--v .am-tl-dot { position: absolute; left: 0; top: 4px; margin: 0; }
+.am-timeline--v .am-tl-when { display: inline; height: auto; font: 12px var(--font-mono); color: var(--ink-2); margin-right: 8px; }
+.am-timeline--v .am-tl-title { display: inline; font-size: 14px; }
+.am-timeline--v .am-tl-text { margin-top: 2px; }
+
+/* ── annot 句子标注 ──────────────────────── */
+.am-annot + .am-annot { border-top: 1px solid var(--line-2); padding-top: 12px; }
+.am-annot-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.am-annot-meta { font: 11px var(--font-mono); font-weight: 400; color: var(--ink-2); }
+.am-annot-scroll { overflow-x: auto; }
+.am-annot-line {
+  position: relative; display: inline-block; white-space: pre; font: 14px/1.6 var(--font-mono);
+  padding-bottom: calc(var(--rows, 0) * 17px + 14px);
+}
+.am-annot-line--wrap { display: block; white-space: normal; padding-bottom: 10px; }
+.am-annot-line--wrap .am-seg { white-space: nowrap; }
+.am-seg { position: relative; }
+.am-seg::after {
+  content: ""; position: absolute; left: 1px; right: 1px; top: calc(100% + 1px); height: 5px;
+  border: 1px solid var(--accent); border-top: 0;
+}
+.am-seg-n {
+  position: absolute; left: 0; top: calc(100% + 8px + var(--row, 0) * 17px);
+  font: 11px/16px var(--font-sans); color: var(--accent); white-space: nowrap;
+}
+.am-seg--err { color: var(--err); }
+.am-seg--err::after { border-color: var(--err); }
+.am-seg--err .am-seg-n { color: var(--err); }
+.am-annot-caption { font-size: 12px; color: var(--ink-2); }
+
+/* ── limits 限值条 ───────────────────────── */
+.am-lim + .am-lim { margin-top: 14px; }
+.am-lim-head { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; margin-bottom: 4px; }
+.am-lim-val { font: 12px var(--font-mono); color: var(--accent); white-space: nowrap; }
+.am-lim-track { position: relative; height: 12px; border: 1px solid var(--line-2); background: var(--fill); border-radius: calc(var(--radius) / 2); }
+.am-lim-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent-bg); border-right: 1px solid var(--accent); }
+.am-lim-mark { position: absolute; top: -4px; bottom: -4px; border-left: 2px solid var(--accent); }
+.am-lim.is-over .am-lim-fill { background: var(--err-bg); border-right-color: var(--err); }
+.am-lim.is-over .am-lim-val { color: var(--err); }
+.am-lim-ticks { position: relative; height: 16px; font: 10px/16px var(--font-mono); color: var(--ink-3); }
+.am-lim-ticks span { position: absolute; transform: translateX(-50%); }
+.am-lim-ticks span:first-child { transform: none; }
+.am-lim-note { font-size: 11px; color: var(--ink-2); margin-left: 6px; }
+
+/* ── tree 结构树 ─────────────────────────── */
+.am-tree { font-size: 13px; }
+.am-tree-root { display: flex; justify-content: center; position: relative; padding-bottom: 18px; }
+.am-tree-root::after { content: ""; position: absolute; bottom: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-root--solo { padding-bottom: 12px; }
+.am-tree-root--solo::after { display: none; }
+.am-tree-box {
+  border: var(--bw) solid var(--line); background: var(--paper); padding: 6px 14px; text-align: center;
+  border-radius: var(--radius); font-weight: 600;
+}
+.am-tree-box small { display: block; font-weight: 400; color: var(--ink-2); font-size: 12px; }
+.am-tree-box--root { background: var(--accent-bg); font-size: 15px; padding: 8px 28px; }
+.am-tree-cols { display: grid; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); }
+.am-tree-col { position: relative; padding: 18px 8px 0; min-width: 0; }
+.am-tree-col::before { content: ""; position: absolute; top: 0; left: 0; right: 0; border-top: var(--bw) solid var(--line); }
+.am-tree-col:first-child::before { left: 50%; }
+.am-tree-col:last-child::before { right: 50%; }
+.am-tree-col::after { content: ""; position: absolute; top: 0; left: 50%; height: 18px; border-left: var(--bw) solid var(--line); }
+.am-tree-list, .am-tree-list ul { list-style: none; margin: 0; padding: 0; }
+.am-tree-col > .am-tree-list { margin: 8px 0 0 14px; }
+.am-tree-list ul { margin-left: 16px; }
+.am-tree-list li { position: relative; padding: 3px 0 3px 18px; }
+.am-tree-list li::before { content: ""; position: absolute; left: 0; top: 0.95em; width: 12px; border-top: 1px solid var(--ink-3); }
+.am-tree-list li::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1px solid var(--ink-3); }
+.am-tree-list li:last-child::after { bottom: auto; height: 0.95em; }
+.am-tree-tag { font: 11px var(--font-mono); color: var(--ink-3); margin-right: 4px; }
+.am-tree code { font: 12px var(--font-mono); }
+.am-tree-sub { display: block; font-size: 11.5px; color: var(--ink-2); }
+.am-tree-hi > .am-tree-label { color: var(--accent); font-weight: 600; }
+
+/* ── 图（flow / sequence）───────────────── */
+.am-diagram { margin: 0; overflow-x: auto; text-align: center; }
+.am-diagram svg { max-width: 100%; height: auto; font-family: var(--font-sans); }
+.am-diagram text { fill: var(--ink); font-size: 13px; }
+.am-node-shape { fill: var(--paper); stroke: var(--line); stroke-width: var(--bw); }
+.am-node--hi .am-node-shape { fill: var(--accent-bg); stroke: var(--accent); }
+.am-node--hi text { fill: var(--accent); font-weight: 600; }
+.am-edge { fill: none; stroke: var(--ink-2); stroke-width: 1.3; }
+.am-edge--dashed { stroke-dasharray: 5 4; }
+.am-arrow { fill: var(--ink-2); }
+.am-edge-label rect { fill: var(--paper); }
+.am-diagram .am-edge-label text { fill: var(--accent); font-size: 11.5px; }
+.am-cluster { fill: var(--fill); stroke: var(--line-2); stroke-width: 1; stroke-dasharray: 4 3; }
+.am-diagram .am-cluster-label { fill: var(--ink-2); font: 11px var(--font-mono); }
+.am-lifeline { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 4 4; }
+.am-actor { fill: var(--paper); stroke: var(--line); stroke-width: var(--bw); }
+.am-note { fill: var(--warn-bg); stroke: var(--warn); stroke-width: 1; }
+.am-diagram .am-step { fill: var(--ink-3); font: 10px var(--font-mono); }
+
+/* ── doc 线性讲解 ────────────────────────── */
+.am-doc { max-width: 1120px; margin: 0 auto; padding: 40px 28px 64px; }
+.am-doc-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.am-doc-layout--notoc { grid-template-columns: minmax(0, 1fr); max-width: 860px; }
+.am-toc { position: sticky; top: 24px; font-size: 13px; }
+.am-toc a { display: block; color: var(--ink-2); text-decoration: none; padding: 4px 0 4px 10px; border-left: 2px solid var(--line-2); }
+.am-toc a:hover { color: var(--ink); border-left-color: var(--accent); }
+.am-doc-body > .am-panel + .am-panel { margin-top: 20px; }
+
+/* ── 响应式与打印 ─────────────────────────── */
+@media (max-width: 1100px) {
+  .am-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .am-grid > .am-panel { grid-column: auto !important; }
+  .am-grid > .am-panel.am-span-wide { grid-column: 1 / -1 !important; }
+}
+@media (max-width: 760px) {
+  .am-sheet, .am-doc { padding: 56px 12px 24px; }
+  .am-head { padding-right: 0; }
+  .am-grid { grid-template-columns: minmax(0, 1fr); }
+  .am-grid > .am-panel.am-span-wide { grid-column: auto !important; }
+  html[data-theme="blueprint"] .am-frame { padding: 0; border: 0; }
+  html[data-theme="blueprint"] .am-frame::before, html[data-theme="blueprint"] .am-ruler { display: none; }
+  .am-doc-layout { grid-template-columns: minmax(0, 1fr); }
+  .am-toc { position: static; }
+  .am-timeline--h { grid-template-columns: minmax(0, 1fr); }
+  .am-tree-cols { grid-template-columns: minmax(0, 1fr); }
+}
+.am-colophon { text-align: center; padding: 0 0 28px; font: 11px var(--font-mono); color: var(--ink-3); }
+
+@media print {
+  .am-toolbar { display: none; }
+  body { background: var(--paper); }
+  .am-panel { break-inside: avoid; box-shadow: none; }
+}
+.am-panel--bare { border: 0; background: transparent; box-shadow: none; }
+.am-panel--bare > .am-panel-body { padding: 0; }
+.am-panel--bare .am-kv { background: var(--paper); }
+
+</style>
+</head>
+<body>
+<div class="am-toolbar">
+<button class="am-btn" type="button" data-am="theme" data-labels="{&quot;blueprint&quot;:&quot;Theme: Blueprint&quot;,&quot;shadcn&quot;:&quot;Theme: Cards&quot;}">Theme: Blueprint</button>
+<button class="am-btn" type="button" data-am="mode" data-labels="{&quot;auto&quot;:&quot;Mode: Auto&quot;,&quot;light&quot;:&quot;Mode: Light&quot;,&quot;dark&quot;:&quot;Mode: Dark&quot;}">Mode: Auto</button>
+<button class="am-btn" type="button" data-am="copy" data-done="Copied ✓">Copy source</button>
+</div>
+<main class="am-sheet">
+<header class="am-head"><h1>Contas, Billing e Suporte</h1><p class="am-sub">Seção 18 do CLF-C02 — Organizations, modelos de preço, ferramentas de custo e planos de suporte</p><div class="am-head-meta"><span><b>exam</b>Domínio 4 · Faturamento, preços e suporte (12%)</span></div><div class="am-intro am-md"><div class="am-md"><p>Esta seção cobre <strong>como organizar contas</strong>, <strong>como a AWS cobra</strong>, <strong>como reduzir custo</strong> e <strong>qual plano de suporte contratar</strong>. Os <strong>modelos de preço do EC2</strong> e os <strong>planos de suporte</strong> caem muito na prova.</p>
+</div></div></header>
+<div class="am-frame">
+<div class="am-ruler am-ruler--top" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div><div class="am-ruler am-ruler--bottom" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div><div class="am-ruler am-ruler--left" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div><div class="am-ruler am-ruler--right" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+<div class="am-grid" style="--cols: 3">
+<section class="am-panel am-span-wide" id="panel-A" style="grid-column: span 2">
+<header class="am-panel-head"><span class="am-panel-id">A</span><h2>AWS Organizations</h2></header>
+<div class="am-panel-body"><div class="am-tree"><div class="am-tree-root"><div class="am-tree-box am-tree-box--root">Raiz<small>Conta de gerenciamento (management account)</small></div></div><div class="am-tree-cols" style="--n: 3"><div class="am-tree-col"><div class="am-tree-box">OU Produção<small>Unidade organizacional</small></div><ul class="am-tree-list"><li><span class="am-tree-label">Conta App A</span><span class="am-tree-sub">Membro</span></li><li><span class="am-tree-label">Conta App B</span><span class="am-tree-sub">Membro</span></li></ul></div><div class="am-tree-col"><div class="am-tree-box">OU Desenvolvimento<small>Unidade organizacional</small></div><ul class="am-tree-list"><li><span class="am-tree-label">Conta Dev</span><span class="am-tree-sub">Membro</span></li></ul></div><div class="am-tree-col"><div class="am-tree-box">OU Segurança<small>Unidade organizacional</small></div><ul class="am-tree-list"><li><span class="am-tree-label">Conta de logs</span><span class="am-tree-sub">Membro</span></li></ul></div></div></div>
+<div class="am-md"><ul>
+<li><strong>Faturamento consolidado</strong>: uma fatura para todas as contas.</li>
+<li><strong>Descontos por volume</strong> somam o uso de todas as contas.</li>
+<li>As contas <strong>compartilham</strong> Reserved Instances e Savings Plans.</li>
+<li>Você cria contas por <strong>API</strong>.</li>
+<li><strong>SCP</strong> (Service Control Policy): limita o que as contas de uma <strong>OU</strong> podem fazer. Ela <strong>não</strong> afeta a conta de gerenciamento.</li>
+<li>A SCP <strong>nega</strong> ou <strong>permite</strong> no limite. Ela não concede permissão sozinha.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel" id="panel-B">
+<header class="am-panel-head"><span class="am-panel-id">B</span><h2>Control Tower</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li>Monta um <strong>ambiente multiconta</strong> (landing zone) seguindo <strong>boas práticas</strong>.</li>
+<li>Usa <strong>guardrails</strong>: <strong>preventivos</strong> (SCP) e <strong>detectivos</strong> (Config).</li>
+<li>Mostra um <strong>painel</strong> de conformidade.</li>
+<li>Gatilho: &quot;configurar contas com governança&quot;, &quot;ambiente seguro em poucos cliques&quot;.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-C" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">C</span><h2>Modelos de preço do EC2</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Como funciona</th>
+<th>Desconto</th>
+<th>Melhor para</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>On-Demand</strong></td>
+<td>Paga por segundo (Linux e Windows) ou por hora. <strong>Sem compromisso</strong></td>
+<td>Nenhum</td>
+<td>Cargas curtas e imprevisíveis</td>
+</tr>
+<tr>
+<td><strong>Reserved Instances</strong></td>
+<td>Compromisso de <strong>1 ou 3 anos</strong> com um tipo de instância. Pagamento total, parcial ou sem entrada</td>
+<td>Até <strong>72%</strong></td>
+<td>Uso <strong>estável</strong> e contínuo</td>
+</tr>
+<tr>
+<td><strong>Savings Plans</strong></td>
+<td>Compromisso de <strong>US$/hora</strong> por 1 ou 3 anos. Mais flexível que o RI</td>
+<td>Até <strong>72%</strong></td>
+<td>Uso estável com flexibilidade de família ou região</td>
+</tr>
+<tr>
+<td><strong>Spot</strong></td>
+<td>Capacidade <strong>ociosa</strong>. A AWS pode <strong>interromper</strong> a instância</td>
+<td>Até <strong>90%</strong></td>
+<td>Tarefas <strong>tolerantes a falha</strong>: lotes, big data, CI</td>
+</tr>
+<tr>
+<td><strong>Dedicated Host</strong></td>
+<td><strong>Servidor físico</strong> só seu. Você controla o posicionamento</td>
+<td>O mais caro</td>
+<td><strong>Licenças por socket</strong> (BYOL) e <strong>conformidade</strong></td>
+</tr>
+<tr>
+<td><strong>Dedicated Instance</strong></td>
+<td>Hardware dedicado a <strong>você</strong>. Sem controle do host</td>
+<td>Alto</td>
+<td>Isolamento de hardware</td>
+</tr>
+<tr>
+<td><strong>Capacity Reservation</strong></td>
+<td><strong>Reserva</strong> capacidade em uma <strong>AZ</strong>. Sem compromisso de prazo</td>
+<td>Nenhum, cobra a tarifa On-Demand</td>
+<td>Garantir que a capacidade exista</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>O <strong>Capacity Reservation</strong> cobra <strong>mesmo sem uso</strong> da instância.</li>
+<li><strong>Convertible RI</strong> permite trocar o tipo de instância. <strong>Standard RI</strong> rende mais desconto.</li>
+<li>Savings Plans: <strong>Compute</strong> (mais flexível, até 66%) e <strong>EC2 Instance</strong> (até 72%).</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-D" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">D</span><h2>Free Tier</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li><strong>12 meses grátis</strong>: por exemplo, 750 h/mês de t2.micro ou t3.micro.</li>
+<li><strong>Sempre grátis</strong>: por exemplo, 1 milhão de chamadas Lambda por mês.</li>
+<li><strong>Testes curtos</strong>: período limitado por serviço.</li>
+<li>Contas novas após <strong>jul/2025</strong> usam um plano com <strong>créditos</strong>. A prova pode seguir o modelo antigo.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-E" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">E</span><h2>Ferramentas de custo</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Ferramenta</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Pricing Calculator</strong></td>
+<td><strong>Estima</strong> o custo de uma arquitetura <strong>antes</strong> de criar</td>
+</tr>
+<tr>
+<td><strong>Budgets</strong></td>
+<td>Cria <strong>orçamentos</strong> e envia <strong>alertas</strong> quando o custo real ou <strong>previsto</strong> passa do limite</td>
+</tr>
+<tr>
+<td><strong>Billing Alarm</strong></td>
+<td>Alarme do <strong>CloudWatch</strong> sobre a <strong>cobrança estimada</strong>. Fica na região <strong>us-east-1</strong></td>
+</tr>
+<tr>
+<td><strong>Cost Explorer</strong></td>
+<td><strong>Visualiza</strong> e analisa custos e uso. <strong>Prevê</strong> custos futuros. Recomenda Reserved Instances e Savings Plans</td>
+</tr>
+<tr>
+<td><strong>Cost and Usage Report (CUR)</strong></td>
+<td>Relatório <strong>mais detalhado</strong>. Chega ao <strong>S3</strong> e abre no Athena ou QuickSight</td>
+</tr>
+<tr>
+<td><strong>Cost Allocation Tags</strong></td>
+<td><strong>Etiquetas</strong> que agrupam custos por projeto ou time. Você precisa <strong>ativá-las</strong> no Billing</td>
+</tr>
+<tr>
+<td><strong>Cost Anomaly Detection</strong></td>
+<td>Detecta <strong>gastos incomuns</strong> com ML</td>
+</tr>
+<tr>
+<td><strong>Compute Optimizer</strong></td>
+<td>Recomenda o tamanho certo (<strong>rightsizing</strong>) para EC2, ASG, EBS e Lambda</td>
+</tr>
+</tbody></table></div>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-F" style="grid-column: span 2">
+<header class="am-panel-head"><span class="am-panel-id">F</span><h2>Trusted Advisor</h2></header>
+<div class="am-panel-body"><div class="am-md"><p>O <strong>Trusted Advisor</strong> inspeciona a sua conta e <strong>recomenda melhorias</strong> em <strong>seis categorias</strong>:</p>
+<div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Categoria</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Otimização de custos</strong></td>
+<td>Instâncias subutilizadas</td>
+</tr>
+<tr>
+<td><strong>Desempenho</strong></td>
+<td>Volumes EBS lentos</td>
+</tr>
+<tr>
+<td><strong>Segurança</strong></td>
+<td>Bucket S3 aberto, falta de MFA</td>
+</tr>
+<tr>
+<td><strong>Tolerância a falhas</strong></td>
+<td>Falta de Multi-AZ ou de backup</td>
+</tr>
+<tr>
+<td><strong>Limites de serviço</strong></td>
+<td>Uso perto da cota</td>
+</tr>
+<tr>
+<td><strong>Excelência operacional</strong></td>
+<td>Boas práticas de operação</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><strong>Basic e Developer</strong>: só as verificações <strong>centrais</strong> (core) de segurança e de limites.</li>
+<li><strong>Business, Enterprise On-Ramp e Enterprise</strong>: <strong>todas</strong> as verificações e acesso por <strong>API</strong>.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel" id="panel-G">
+<header class="am-panel-head"><span class="am-panel-id">G</span><h2>Cotas e contas técnicas</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li><strong>Service Quotas</strong>: consulta e <strong>pede aumento</strong> das cotas (limites) de cada serviço.</li>
+<li><strong>TAM</strong> (Technical Account Manager): gerente técnico <strong>dedicado</strong>. Só nos planos <strong>Enterprise</strong>.</li>
+<li><strong>Health Dashboard</strong>: mostra o estado dos serviços e eventos que afetam <strong>a sua conta</strong>.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-H" style="grid-column: span 3">
+<header class="am-panel-head"><span class="am-panel-id">H</span><h2>Planos de suporte</h2></header>
+<div class="am-panel-body"><div class="am-md"><div class="am-table-wrap"><table>
+<thead>
+<tr>
+<th>Plano</th>
+<th>Preço inicial</th>
+<th>Canais</th>
+<th>Tempos de resposta</th>
+<th>Extras</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Basic</strong></td>
+<td>Grátis</td>
+<td>Documentação, fóruns e atendimento de <strong>conta e cobrança</strong> 24/7</td>
+<td>—</td>
+<td>Trusted Advisor <strong>core</strong>, Health Dashboard</td>
+</tr>
+<tr>
+<td><strong>Developer</strong></td>
+<td>~US$ 29/mês</td>
+<td>E-mail em <strong>horário comercial</strong></td>
+<td>Geral &lt; 24 h. Sistema prejudicado &lt; 12 h</td>
+<td>Um contato principal</td>
+</tr>
+<tr>
+<td><strong>Business</strong></td>
+<td>~US$ 100/mês</td>
+<td><strong>24/7</strong>: telefone, e-mail e chat</td>
+<td>Produção prejudicada &lt; 4 h. Produção parada &lt; 1 h</td>
+<td>Trusted Advisor completo, <strong>API</strong>, suporte a software de terceiros</td>
+</tr>
+<tr>
+<td><strong>Enterprise On-Ramp</strong></td>
+<td>~US$ 5.500/mês</td>
+<td>24/7</td>
+<td>Produção parada &lt; 1 h. <strong>Crítico para o negócio</strong> parado &lt; 30 min</td>
+<td><strong>Pool de TAMs</strong>, equipe Concierge, revisões de arquitetura</td>
+</tr>
+<tr>
+<td><strong>Enterprise</strong></td>
+<td>~US$ 15.000/mês</td>
+<td>24/7</td>
+<td><strong>Crítico para o negócio</strong> parado &lt; <strong>15 min</strong></td>
+<td><strong>TAM dedicado</strong>, Concierge, revisão Well-Architected, gestão de eventos</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>Valores e tempos são os <strong>do curso</strong>. A AWS atualiza os planos. Confira a página oficial.</li>
+<li>Memorize a <strong>escada</strong>: Basic → Developer → Business → On-Ramp → Enterprise.</li>
+<li><strong>Business</strong> é o primeiro com <strong>24/7</strong> e <strong>Trusted Advisor completo</strong>.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel am-span-wide" id="panel-I" style="grid-column: span 2">
+<header class="am-panel-head"><span class="am-panel-id">I</span><h2>Ciclo de gestão de custo</h2></header>
+<div class="am-panel-body"><figure class="am-diagram am-flow"><svg viewBox="0 0 978 100" width="978" height="100" role="img" aria-label="流程图：Pricing Calculator、Budgets、Cost Explorer、Compute Optimizer" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am1-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="am-arrow" d="M0,0 L10,5 L0,10 z"/></marker></defs><g></g><g><path class="am-edge" d="M150.9,55.4 L197.3,62 Q243.7,68.5 290,68.5 L336.4,68.5" marker-end="url(#am1-arrow)"/><g class="am-edge-label"><rect x="174.9" y="59.5" width="137.4" height="18" rx="3"/><text x="243.7" y="68.5" text-anchor="middle" dominant-baseline="central">estima e define o limite</text></g><path class="am-edge" d="M413.8,68.5 L449.1,68.5 Q484.4,68.5 519.7,68.5 L555,68.5" marker-end="url(#am1-arrow)"/><g class="am-edge-label"><rect x="437.8" y="59.5" width="93.3" height="18" rx="3"/><text x="484.4" y="68.5" text-anchor="middle" dominant-baseline="central">alerta e analisa</text></g><path class="am-edge" d="M664.9,68.5 L703.1,68.5 Q741.2,68.5 779.3,62.7 L817.4,56.9" marker-end="url(#am1-arrow)"/><g class="am-edge-label"><rect x="688.9" y="59.5" width="104.5" height="18" rx="3"/><text x="741.2" y="68.5" text-anchor="middle" dominant-baseline="central">acha desperdício</text></g><path class="am-edge" d="M817.4,34.6 L779.3,28.8 Q741.2,23 675.6,23 Q610,23 547.2,23 Q484.4,23 429.7,23 Q375.1,23 309.4,23 Q243.7,23 197.3,29.5 L150.9,36.1" marker-end="url(#am1-arrow)"/><g class="am-edge-label"><rect x="456" y="14" width="56.7" height="18" rx="3"/><text x="484.4" y="23" text-anchor="middle" dominant-baseline="central">reestima</text></g></g><g><g class="am-node am-node--rect"><rect class="am-node-shape" x="14" y="28.3" width="136.9" height="35" rx="3"/><text x="82.5" y="45.8" text-anchor="middle" dominant-baseline="central">Pricing Calculator</text></g><g class="am-node am-node--rect am-node--hi"><rect class="am-node-shape" x="336.4" y="51" width="77.4" height="35" rx="3"/><text x="375.1" y="68.5" text-anchor="middle" dominant-baseline="central">Budgets</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="555" y="51" width="109.9" height="35" rx="3"/><text x="610" y="68.5" text-anchor="middle" dominant-baseline="central">Cost Explorer</text></g><g class="am-node am-node--rect"><rect class="am-node-shape" x="817.4" y="28.3" width="146" height="35" rx="3"/><text x="890.5" y="45.8" text-anchor="middle" dominant-baseline="central">Compute Optimizer</text></g></g></svg></figure>
+<div class="am-md"><ul>
+<li><strong>Estimar</strong> antes. <strong>Controlar</strong> durante. <strong>Analisar</strong> e <strong>otimizar</strong> depois.</li>
+</ul>
+</div></div>
+</section>
+<section class="am-panel" id="panel-J">
+<header class="am-panel-head"><span class="am-panel-id">J</span><h2>Resumo</h2></header>
+<div class="am-panel-body"><div class="am-md"><ul>
+<li>Muitas contas = <strong>Organizations</strong>.</li>
+<li>Regras entre contas = <strong>SCP</strong>.</li>
+<li>Fatura única = <strong>consolidada</strong>.</li>
+</ul>
+</div>
+<div class="am-callout am-callout--warn" role="note"><div class="am-callout-title">Pegadinhas de prova</div><div class="am-callout-body am-md"><ul>
+<li>&quot;Fatura única e desconto por volume&quot; = <strong>Organizations</strong>. &quot;Restringir serviços numa OU&quot; = <strong>SCP</strong>.</li>
+<li>&quot;Uso estável, 1 ou 3 anos&quot; = <strong>Reserved Instances</strong> ou <strong>Savings Plans</strong>. &quot;Mais flexível&quot; = <strong>Savings Plans</strong>.</li>
+<li>&quot;Pode ser interrompido, mais barato&quot; = <strong>Spot</strong>. &quot;Licença por socket&quot; = <strong>Dedicated Host</strong>.</li>
+<li>&quot;Garantir capacidade em uma AZ&quot; = <strong>Capacity Reservation</strong>. &quot;Sem compromisso&quot; = <strong>On-Demand</strong>.</li>
+<li>&quot;Estimar antes de criar&quot; = <strong>Pricing Calculator</strong>. &quot;Alerta de orçamento&quot; = <strong>Budgets</strong>.</li>
+<li>&quot;Analisar e prever custos&quot; = <strong>Cost Explorer</strong>. &quot;Mais detalhado&quot; = <strong>CUR</strong>. &quot;Agrupar por projeto&quot; = <strong>tags de alocação</strong>.</li>
+<li>&quot;Rightsizing&quot; = <strong>Compute Optimizer</strong>. &quot;Recomendações em seis categorias&quot; = <strong>Trusted Advisor</strong>.</li>
+<li>&quot;TAM&quot; = <strong>Enterprise</strong> (On-Ramp tem um pool). &quot;24/7 por telefone, o primeiro plano&quot; = <strong>Business</strong>.</li>
+</ul>
+</div></div></div>
+</section>
+</div>
+</div>
+</main>
+<footer class="am-colophon">Generated by Answer me with HTML 0.2.2 · 2026-10-10 18:23</footer>
+<textarea id="am-source" hidden readonly aria-hidden="true">---
+title: Contas, Billing e Suporte
+subtitle: Seção 18 do CLF-C02 — Organizations, modelos de preço, ferramentas de custo e planos de suporte
+cols: 3
+exam: Domínio 4 · Faturamento, preços e suporte (12%)
+---
+Esta seção cobre **como organizar contas**, **como a AWS cobra**, **como reduzir custo** e **qual plano de suporte contratar**. Os **modelos de preço do EC2** e os **planos de suporte** caem muito na prova.
+
+## A AWS Organizations {span=2}
+```tree
+Raiz | Conta de gerenciamento (management account)
+  OU Produção | Unidade organizacional
+    Conta App A | Membro
+    Conta App B | Membro
+  OU Desenvolvimento | Unidade organizacional
+    Conta Dev | Membro
+  OU Segurança | Unidade organizacional
+    Conta de logs | Membro
+```
+- **Faturamento consolidado**: uma fatura para todas as contas.
+- **Descontos por volume** somam o uso de todas as contas.
+- As contas **compartilham** Reserved Instances e Savings Plans.
+- Você cria contas por **API**.
+- **SCP** (Service Control Policy): limita o que as contas de uma **OU** podem fazer. Ela **não** afeta a conta de gerenciamento.
+- A SCP **nega** ou **permite** no limite. Ela não concede permissão sozinha.
+
+## B Control Tower {span=1}
+- Monta um **ambiente multiconta** (landing zone) seguindo **boas práticas**.
+- Usa **guardrails**: **preventivos** (SCP) e **detectivos** (Config).
+- Mostra um **painel** de conformidade.
+- Gatilho: &quot;configurar contas com governança&quot;, &quot;ambiente seguro em poucos cliques&quot;.
+
+## C Modelos de preço do EC2 {span=3}
+| Modelo | Como funciona | Desconto | Melhor para |
+|---|---|---|---|
+| **On-Demand** | Paga por segundo (Linux e Windows) ou por hora. **Sem compromisso** | Nenhum | Cargas curtas e imprevisíveis |
+| **Reserved Instances** | Compromisso de **1 ou 3 anos** com um tipo de instância. Pagamento total, parcial ou sem entrada | Até **72%** | Uso **estável** e contínuo |
+| **Savings Plans** | Compromisso de **US$/hora** por 1 ou 3 anos. Mais flexível que o RI | Até **72%** | Uso estável com flexibilidade de família ou região |
+| **Spot** | Capacidade **ociosa**. A AWS pode **interromper** a instância | Até **90%** | Tarefas **tolerantes a falha**: lotes, big data, CI |
+| **Dedicated Host** | **Servidor físico** só seu. Você controla o posicionamento | O mais caro | **Licenças por socket** (BYOL) e **conformidade** |
+| **Dedicated Instance** | Hardware dedicado a **você**. Sem controle do host | Alto | Isolamento de hardware |
+| **Capacity Reservation** | **Reserva** capacidade em uma **AZ**. Sem compromisso de prazo | Nenhum, cobra a tarifa On-Demand | Garantir que a capacidade exista |
+
+- O **Capacity Reservation** cobra **mesmo sem uso** da instância.
+- **Convertible RI** permite trocar o tipo de instância. **Standard RI** rende mais desconto.
+- Savings Plans: **Compute** (mais flexível, até 66%) e **EC2 Instance** (até 72%).
+
+## D Free Tier {span=1}
+- **12 meses grátis**: por exemplo, 750 h/mês de t2.micro ou t3.micro.
+- **Sempre grátis**: por exemplo, 1 milhão de chamadas Lambda por mês.
+- **Testes curtos**: período limitado por serviço.
+- Contas novas após **jul/2025** usam um plano com **créditos**. A prova pode seguir o modelo antigo.
+
+## E Ferramentas de custo {span=3}
+| Ferramenta | Função |
+|---|---|
+| **Pricing Calculator** | **Estima** o custo de uma arquitetura **antes** de criar |
+| **Budgets** | Cria **orçamentos** e envia **alertas** quando o custo real ou **previsto** passa do limite |
+| **Billing Alarm** | Alarme do **CloudWatch** sobre a **cobrança estimada**. Fica na região **us-east-1** |
+| **Cost Explorer** | **Visualiza** e analisa custos e uso. **Prevê** custos futuros. Recomenda Reserved Instances e Savings Plans |
+| **Cost and Usage Report (CUR)** | Relatório **mais detalhado**. Chega ao **S3** e abre no Athena ou QuickSight |
+| **Cost Allocation Tags** | **Etiquetas** que agrupam custos por projeto ou time. Você precisa **ativá-las** no Billing |
+| **Cost Anomaly Detection** | Detecta **gastos incomuns** com ML |
+| **Compute Optimizer** | Recomenda o tamanho certo (**rightsizing**) para EC2, ASG, EBS e Lambda |
+
+## F Trusted Advisor {span=2}
+O **Trusted Advisor** inspeciona a sua conta e **recomenda melhorias** em **seis categorias**:
+
+| Categoria | Exemplo |
+|---|---|
+| **Otimização de custos** | Instâncias subutilizadas |
+| **Desempenho** | Volumes EBS lentos |
+| **Segurança** | Bucket S3 aberto, falta de MFA |
+| **Tolerância a falhas** | Falta de Multi-AZ ou de backup |
+| **Limites de serviço** | Uso perto da cota |
+| **Excelência operacional** | Boas práticas de operação |
+
+- **Basic e Developer**: só as verificações **centrais** (core) de segurança e de limites.
+- **Business, Enterprise On-Ramp e Enterprise**: **todas** as verificações e acesso por **API**.
+
+## G Cotas e contas técnicas {span=1}
+- **Service Quotas**: consulta e **pede aumento** das cotas (limites) de cada serviço.
+- **TAM** (Technical Account Manager): gerente técnico **dedicado**. Só nos planos **Enterprise**.
+- **Health Dashboard**: mostra o estado dos serviços e eventos que afetam **a sua conta**.
+
+## H Planos de suporte {span=3}
+| Plano | Preço inicial | Canais | Tempos de resposta | Extras |
+|---|---|---|---|---|
+| **Basic** | Grátis | Documentação, fóruns e atendimento de **conta e cobrança** 24/7 | — | Trusted Advisor **core**, Health Dashboard |
+| **Developer** | ~US$ 29/mês | E-mail em **horário comercial** | Geral &lt; 24 h. Sistema prejudicado &lt; 12 h | Um contato principal |
+| **Business** | ~US$ 100/mês | **24/7**: telefone, e-mail e chat | Produção prejudicada &lt; 4 h. Produção parada &lt; 1 h | Trusted Advisor completo, **API**, suporte a software de terceiros |
+| **Enterprise On-Ramp** | ~US$ 5.500/mês | 24/7 | Produção parada &lt; 1 h. **Crítico para o negócio** parado &lt; 30 min | **Pool de TAMs**, equipe Concierge, revisões de arquitetura |
+| **Enterprise** | ~US$ 15.000/mês | 24/7 | **Crítico para o negócio** parado &lt; **15 min** | **TAM dedicado**, Concierge, revisão Well-Architected, gestão de eventos |
+
+- Valores e tempos são os **do curso**. A AWS atualiza os planos. Confira a página oficial.
+- Memorize a **escada**: Basic → Developer → Business → On-Ramp → Enterprise.
+- **Business** é o primeiro com **24/7** e **Trusted Advisor completo**.
+
+## I Ciclo de gestão de custo {span=2}
+```flow LR
+Pricing Calculator -&gt; *Budgets: estima e define o limite
+Budgets -&gt; Cost Explorer: alerta e analisa
+Cost Explorer -&gt; Compute Optimizer: acha desperdício
+Compute Optimizer -&gt; Pricing Calculator: reestima
+```
+- **Estimar** antes. **Controlar** durante. **Analisar** e **otimizar** depois.
+
+## J Resumo {span=1}
+- Muitas contas = **Organizations**.
+- Regras entre contas = **SCP**.
+- Fatura única = **consolidada**.
+
+```callout warn Pegadinhas de prova
+- &quot;Fatura única e desconto por volume&quot; = **Organizations**. &quot;Restringir serviços numa OU&quot; = **SCP**.
+- &quot;Uso estável, 1 ou 3 anos&quot; = **Reserved Instances** ou **Savings Plans**. &quot;Mais flexível&quot; = **Savings Plans**.
+- &quot;Pode ser interrompido, mais barato&quot; = **Spot**. &quot;Licença por socket&quot; = **Dedicated Host**.
+- &quot;Garantir capacidade em uma AZ&quot; = **Capacity Reservation**. &quot;Sem compromisso&quot; = **On-Demand**.
+- &quot;Estimar antes de criar&quot; = **Pricing Calculator**. &quot;Alerta de orçamento&quot; = **Budgets**.
+- &quot;Analisar e prever custos&quot; = **Cost Explorer**. &quot;Mais detalhado&quot; = **CUR**. &quot;Agrupar por projeto&quot; = **tags de alocação**.
+- &quot;Rightsizing&quot; = **Compute Optimizer**. &quot;Recomendações em seis categorias&quot; = **Trusted Advisor**.
+- &quot;TAM&quot; = **Enterprise** (On-Ramp tem um pool). &quot;24/7 por telefone, o primeiro plano&quot; = **Business**.
+```
+</textarea>
+<script>
+(() => {
+  const root = document.documentElement;
+  const cycle = (list, cur) => list[(list.indexOf(cur) + 1) % list.length];
+  const label = (btn, value) => {
+    const map = JSON.parse(btn.dataset.labels || '{}');
+    btn.textContent = map[value] || value;
+  };
+  const bind = (name, attr, values) => {
+    const btn = document.querySelector(`[data-am="${name}"]`);
+    if (!btn) return;
+    label(btn, root.getAttribute(attr));
+    btn.addEventListener('click', () => {
+      const next = cycle(values, root.getAttribute(attr));
+      root.setAttribute(attr, next);
+      label(btn, next);
+    });
+  };
+  bind('theme', 'data-theme', ['blueprint', 'shadcn']);
+  bind('mode', 'data-mode', ['auto', 'light', 'dark']);
+
+  const copyBtn = document.querySelector('[data-am="copy"]');
+  copyBtn?.addEventListener('click', async () => {
+    const text = document.getElementById('am-source').value;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const ta = Object.assign(document.createElement('textarea'), { value: text });
+      document.body.append(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    const original = copyBtn.textContent;
+    copyBtn.textContent = copyBtn.dataset.done;
+    setTimeout(() => { copyBtn.textContent = original; }, 1400);
+  });
+})();
+</script>
+</body>
+</html>
