@@ -1,316 +1,699 @@
 <!doctype html>
 <html lang="pt-BR">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Estudo CLF-C02</title>
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a1730'/%3E%3Crect x='4' y='20' width='6' height='8' fill='%234d8dff'/%3E%3Crect x='12' y='14' width='6' height='14' fill='%232cc08a'/%3E%3Crect x='20' y='6' width='8' height='22' fill='%239a7dff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-  /* Layout: single column reading list, sticky toolbar, row per course section */
+  /*
+    Layout: fixed-height reader. Dark navy rail on the left (exam coverage bar + section list),
+    content frame on the right with a slim top bar and a bottom pager.
+    Signature: the coverage bar is cut into four segments sized by the real exam weights
+    (24/30/34/12) and each fills as the sections of that domain are marked as read.
+  */
   :root {
-    --bg: #f2f5f7;
+    --page: #e6ecf4;
     --surface: #ffffff;
-    --ink: #17222d;
-    --muted: #5b6b79;
-    --line: #d9e1e7;
-    --accent: #0b6e69;
+    --ink: #0e1726;
+    --ink-2: #48566a;
+    --line: #c9d3e1;
+    --accent: #2457d6;
     --accent-ink: #ffffff;
-    --accent-soft: #dcf0ee;
-    --done: #8a98a5;
-    --font-body: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --font-num: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --rail: #0a1730;
+    --rail-ink: #e4ebf5;
+    --rail-ink-2: #8d9fba;
+    --rail-line: #1d2e4d;
+    --rail-hover: #12244a;
+    --rail-current: #183061;
+
+    --domain-1: #4d8dff;
+    --domain-2: #2cc08a;
+    --domain-3: #9a7dff;
+    --domain-4: #f0b042;
+
+    --font-ui: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --rail-width: 330px;
+    color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #10171e;
-      --surface: #18212a;
-      --ink: #e6edf3;
-      --muted: #94a3b1;
-      --line: #28343f;
-      --accent: #4fc3bb;
-      --accent-ink: #08201e;
-      --accent-soft: #163532;
-      --done: #647584;
+      --page: #060d1a;
+      --surface: #0d1c31;
+      --ink: #e6edf7;
+      --ink-2: #9fb0c6;
+      --line: #1f3252;
+      --accent: #6ea8ff;
+      --accent-ink: #061226;
+      --rail: #08122a;
+      --rail-line: #1a2a47;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #10171e;
-    --surface: #18212a;
-    --ink: #e6edf3;
-    --muted: #94a3b1;
-    --line: #28343f;
-    --accent: #4fc3bb;
-    --accent-ink: #08201e;
-    --accent-soft: #163532;
-    --done: #647584;
+    --page: #060d1a;
+    --surface: #0d1c31;
+    --ink: #e6edf7;
+    --ink-2: #9fb0c6;
+    --line: #1f3252;
+    --accent: #6ea8ff;
+    --accent-ink: #061226;
+    --rail: #08122a;
+    --rail-line: #1a2a47;
     color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
+  html, body { height: 100%; }
   body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.5;
     margin: 0;
-    padding-inline: 16px;
-    padding-block: 32px 64px;
+    background: var(--page);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.45;
+    display: grid;
+    grid-template-columns: var(--rail-width) minmax(0, 1fr);
+    overflow: hidden;
   }
-  main { max-width: 760px; margin-inline: auto; }
-  header { display: grid; gap: 8px; margin-bottom: 24px; }
+  button, input { font: inherit; color: inherit; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- Rail ---------- */
+  .rail {
+    background: var(--rail);
+    color: var(--rail-ink);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border-right: 1px solid var(--rail-line);
+  }
+  .rail-head { padding: 22px 20px 16px; display: grid; gap: 14px; }
   .eyebrow {
-    font-family: var(--font-num);
-    font-size: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--rail-ink-2);
   }
-  h1 { font-size: clamp(28px, 6vw, 40px); line-height: 1.1; margin: 0; text-wrap: balance; }
-  header p { color: var(--muted); margin: 0; max-width: 60ch; }
+  .brand {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1;
+    font-weight: 800;
+    font-stretch: 118%;
+    letter-spacing: -0.01em;
+  }
 
-  .progress { display: grid; gap: 8px; margin-bottom: 24px; }
-  .progress-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-  .progress-label { font-size: 14px; color: var(--muted); }
-  .progress-label strong { color: var(--ink); font-variant-numeric: tabular-nums; }
-  .bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
-  .bar-fill { height: 100%; width: 0; background: var(--accent); transition: width 0.25s ease; }
-  .resume {
-    font: inherit;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--accent-ink);
-    background: var(--accent);
-    border-radius: 6px;
-    padding: 8px 14px;
-    text-decoration: none;
+  .coverage { display: grid; gap: 8px; }
+  .coverage-bar { display: flex; gap: 3px; height: 14px; }
+  .coverage-segment { background: color-mix(in srgb, var(--segment-color) 24%, var(--rail-line)); position: relative; overflow: hidden; }
+  .coverage-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0;
+    background: var(--segment-color);
+    transition: width 0.3s ease;
   }
-  .resume[hidden] { display: none; }
+  .coverage-caption { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--rail-ink-2); }
+  .coverage-caption strong { color: var(--rail-ink); font-variant-numeric: tabular-nums; }
 
-  .toolbar {
-    position: sticky;
-    top: env(safe-area-inset-top, 0px);
-    background: var(--bg);
-    padding-block: 8px;
-    margin-bottom: 8px;
-    z-index: 2;
-  }
-  .toolbar input {
+  .search { padding: 0 20px 12px; }
+  .search input {
     width: 100%;
-    font: inherit;
-    color: var(--ink);
-    background: var(--surface);
-    border: 1px solid var(--line);
+    background: var(--rail-hover);
+    border: 1px solid var(--rail-line);
     border-radius: 6px;
-    padding: 10px 12px;
+    padding: 9px 12px;
+    color: var(--rail-ink);
   }
-  .toolbar input::placeholder { color: var(--muted); }
+  .search input::placeholder { color: var(--rail-ink-2); }
 
-  ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-  li {
+  .toc { overflow-y: auto; padding: 4px 12px 24px; flex: 1; min-height: 0; }
+  .group { margin-top: 14px; }
+  .group[hidden] { display: none; }
+  .group-head {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 0 8px 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--rail-ink-2);
+  }
+  .group-head .swatch { width: 8px; height: 8px; background: var(--segment-color, var(--rail-ink-2)); align-self: center; }
+  .group-head .group-name { flex: 1; }
+  .group-head .group-count { font-variant-numeric: tabular-nums; }
+
+  .item {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 14px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 8px 8px 8px 9px;
+    border-left: 3px solid transparent;
+    text-decoration: none;
+    color: var(--rail-ink);
+  }
+  .item[hidden] { display: none; }
+  .item:hover { background: var(--rail-hover); }
+  .item[aria-current="page"] { background: var(--rail-current); border-left-color: var(--segment-color, var(--rail-ink)); }
+  .item-box {
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    border: 1.5px solid var(--rail-ink-2);
+    display: grid;
+    place-items: center;
+  }
+  .item.is-read .item-box { background: var(--segment-color, var(--rail-ink-2)); border-color: var(--segment-color, var(--rail-ink-2)); }
+  .item.is-read .item-box::after { content: ""; width: 6px; height: 3px; border-left: 2px solid var(--rail); border-bottom: 2px solid var(--rail); transform: translateY(-1px) rotate(-45deg); }
+  .item-label { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--rail-ink-2); letter-spacing: 0.04em; }
+  .item-title { display: block; font-weight: 500; font-size: 14px; line-height: 1.3; overflow-wrap: anywhere; }
+  .item.is-read .item-title { color: var(--rail-ink-2); }
+  .toc-empty { padding: 20px 8px; color: var(--rail-ink-2); font-size: 14px; }
+  .toc-empty[hidden] { display: none; }
+
+  .rail-foot { border-top: 1px solid var(--rail-line); padding: 10px 20px; display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--rail-ink-2); }
+  .rail-foot button { background: none; border: 0; padding: 0; color: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .rail-foot button:hover { color: var(--rail-ink); }
+
+  /* ---------- Reader ---------- */
+  .reader { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-width: 0; min-height: 0; height: 100%; }
+  .topbar {
+    display: flex;
     align-items: center;
     gap: 12px;
+    padding: 10px 16px;
     background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    min-height: 52px;
+  }
+  .menu-button { display: none; }
+  .current { flex: 1; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); }
+  .current-title { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .current-domain { font-family: var(--font-mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.04em; display: flex; align-items: center; gap: 6px; }
+  .current-domain { min-width: 0; }
+  .current-domain .swatch { flex: none; width: 8px; height: 8px; background: var(--segment-color, var(--ink-2)); }
+  .current-domain .descriptor { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tools { display: flex; align-items: center; gap: 8px; }
+  .tool {
+    background: transparent;
     border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 12px 14px;
-  }
-  li[hidden] { display: none; }
-  .num { font-family: var(--font-num); font-size: 14px; color: var(--accent); min-width: 2ch; }
-  .body { min-width: 0; }
-  .body a {
-    color: var(--ink);
-    font-weight: 700;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
     text-decoration: none;
-    overflow-wrap: anywhere;
+    cursor: pointer;
+    white-space: nowrap;
   }
-  .body a:hover, .body a:focus-visible { color: var(--accent); text-decoration: underline; }
-  .body a::after { content: ""; position: absolute; inset: 0; }
-  li { position: relative; }
-  .sub { display: block; font-size: 14px; color: var(--muted); }
-  .check { position: relative; z-index: 1; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; }
-  .check input { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; margin: 0; }
-  li.read { background: transparent; }
-  li.read .body a, li.read .num { color: var(--done); }
-  li:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
-  a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tool:hover { border-color: var(--ink-2); }
 
-  .empty { color: var(--muted); padding: 24px 0; text-align: center; }
-  .empty[hidden] { display: none; }
-  footer { margin-top: 32px; font-size: 13px; color: var(--muted); }
-  footer button {
-    font: inherit; font-size: 13px; color: var(--muted); background: none;
-    border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; cursor: pointer;
+  .frame-wrap { position: relative; background: var(--surface); min-height: 0; }
+  .frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: var(--surface); opacity: 0; transition: opacity 0.12s ease; }
+  .frame.is-ready { opacity: 1; }
+
+  .pager {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+  }
+  .pager-link { display: grid; gap: 1px; padding: 6px 10px; border: 1px solid transparent; border-radius: 6px; text-decoration: none; min-width: 0; }
+  .pager-link:hover { border-color: var(--line); }
+  .pager-link[aria-disabled="true"] { visibility: hidden; }
+  .pager-link.next { text-align: right; }
+  .pager-hint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.04em; }
+  .pager-title { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .read-toggle {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 9px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .read-toggle[aria-pressed="true"] { background: transparent; color: var(--ink); border-color: var(--line); }
+
+  .scrim { display: none; }
+
+  /* ---------- Narrow screens: rail becomes a drawer ---------- */
+  @media (max-width: 860px) {
+    body { grid-template-columns: minmax(0, 1fr); }
+    .rail {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: min(340px, 88vw);
+      z-index: 20;
+      transform: translateX(-100%);
+      transition: transform 0.2s ease;
+      padding-top: env(safe-area-inset-top, 0px);
+    }
+    body.drawer-open .rail { transform: none; }
+    body.drawer-open .scrim { display: block; position: fixed; inset: 0; background: rgba(4, 10, 22, 0.55); z-index: 10; }
+    .menu-button { display: inline-block; }
+    .tool-source, .tool-open { display: none; }
+    .pager { grid-template-columns: auto minmax(0, 1fr) auto; }
+    .pager-link { padding: 6px; }
+    .pager-title, .pager-hint { display: none; }
+    .pager-link::before { content: attr(data-arrow); font-size: 20px; line-height: 1; }
+    .read-toggle { width: 100%; }
   }
 
-  @media (max-width: 480px) {
-    .check span { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
   }
 </style>
-
-<main>
-  <header>
-    <span class="eyebrow">AWS Certified Cloud Practitioner · CLF-C02</span>
-    <h1>Estudo CLF-C02</h1>
-    <p>Resumos visuais do curso, uma página por seção. Marque cada uma como lida e busque por qualquer serviço.</p>
-  </header>
-
-  <section class="progress" aria-label="Progresso">
-    <div class="progress-top">
-      <span class="progress-label"><strong id="doneCount">0</strong> de <strong id="totalCount">0</strong> seções lidas</span>
-      <a id="resume" class="resume" href="#" hidden>Continuar</a>
+</head>
+<body>
+  <aside class="rail" id="rail" aria-label="Seções do curso">
+    <div class="rail-head">
+      <div>
+        <div class="eyebrow">AWS Certified Cloud Practitioner</div>
+        <h1 class="brand">CLF-C02</h1>
+      </div>
+      <div class="coverage" aria-label="Cobertura da prova">
+        <div class="coverage-bar" id="coverageBar"></div>
+        <div class="coverage-caption">
+          <span>Cobertura ponderada pelo peso da prova</span>
+          <strong id="coveragePercent">0%</strong>
+        </div>
+      </div>
     </div>
-    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><div class="bar-fill" id="barFill"></div></div>
-  </section>
+    <div class="search">
+      <input id="search" type="search" placeholder="Buscar serviço ou seção" aria-label="Buscar serviço ou seção" autocomplete="off">
+    </div>
+    <nav class="toc" id="toc"></nav>
+    <p class="toc-empty" id="tocEmpty" hidden>Nenhuma seção com esse termo.</p>
+    <div class="rail-foot">
+      <span id="readSummary">0 de 21 lidas</span>
+      <button type="button" id="resetProgress">Zerar progresso</button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
 
-  <div class="toolbar">
-    <input id="search" type="search" placeholder="Buscar serviço ou seção (ex.: SQS, Lambda, billing)" aria-label="Buscar">
-  </div>
-
-  <ol id="list"></ol>
-  <p class="empty" id="empty" hidden>Nada encontrado para essa busca.</p>
-
-  <footer>
-    <button type="button" id="reset">Limpar marcações</button>
-  </footer>
-</main>
+  <main class="reader">
+    <header class="topbar">
+      <button type="button" class="tool menu-button" id="menuButton" aria-controls="rail" aria-expanded="false">Seções</button>
+      <div class="current">
+        <span class="current-title" id="currentTitle">Estudo CLF-C02</span>
+        <span class="current-domain" id="currentDomain"></span>
+      </div>
+      <div class="tools">
+        <button type="button" class="tool" id="themeButton" title="Alternar tema do leitor">Tema: auto</button>
+        <a class="tool tool-open" id="openAlone" href="#" target="_blank" rel="noopener">Abrir sozinha</a>
+        <a class="tool tool-source" id="openSource" href="#" target="_blank" rel="noopener">Ver .md</a>
+      </div>
+    </header>
+    <div class="frame-wrap">
+      <iframe class="frame" id="frame" title="Resumo da seção"></iframe>
+    </div>
+    <footer class="pager">
+      <a class="pager-link prev" id="prevLink" href="#" data-arrow="←">
+        <span class="pager-hint">Anterior</span>
+        <span class="pager-title" id="prevTitle"></span>
+      </a>
+      <button type="button" class="read-toggle" id="readToggle" aria-pressed="false">Marcar como lida</button>
+      <a class="pager-link next" id="nextLink" href="#" data-arrow="→">
+        <span class="pager-hint">Próxima</span>
+        <span class="pager-title" id="nextTitle"></span>
+      </a>
+    </footer>
+  </main>
 
 <script>
-  const SECTIONS = [
-    { id: "00", file: "00-visao-geral-clf-c02.html", title: "AWS Cloud Practitioner (CLF-C02)", sub: "Os conceitos que caem na prova, por domínio" },
-    { id: "03", file: "03-what-is-cloud-computing.html", title: "O que é Cloud Computing?", sub: "Do datacenter próprio à nuvem AWS" },
-    { id: "04", file: "04-iam.html", title: "IAM — Identity and Access Management", sub: "Quem pode fazer o quê na sua conta AWS" },
-    { id: "05", file: "05-ec2.html", title: "EC2 — Elastic Compute Cloud", sub: "Servidores virtuais na AWS (IaaS)" },
-    { id: "06", file: "06-ec2-instance-storage.html", title: "EC2 Instance Storage", sub: "Onde a instância guarda dados: EBS, EFS, Instance Store" },
-    { id: "07", file: "07-elb-asg.html", title: "ELB e ASG", sub: "Elastic Load Balancing e Auto Scaling Groups" },
-    { id: "08", file: "08-s3.html", title: "Amazon S3", sub: "Simple Storage Service" },
-    { id: "09", file: "09-databases-analytics.html", title: "Databases e Analytics", sub: "RDS, Aurora, DynamoDB, Redshift, Athena e mais" },
-    { id: "10", file: "10-other-compute.html", title: "Outros serviços de computação", sub: "ECS, Fargate, ECR, EKS, Lambda, Batch e Lightsail" },
-    { id: "11", file: "11-deployments-infra.html", title: "Deployments e infraestrutura em escala", sub: "CloudFormation, CDK, Beanstalk, CodeSuite e Systems Manager" },
-    { id: "12", file: "12-global-infrastructure.html", title: "Infraestrutura global da AWS", sub: "Regiões, AZs, edge, Route 53, CloudFront e híbrido" },
-    { id: "13", file: "13-cloud-integrations.html", title: "Cloud Integrations", sub: "SQS, SNS, Kinesis, MQ, EventBridge e Step Functions" },
-    { id: "14", file: "14-cloud-monitoring.html", title: "Cloud Monitoring", sub: "CloudWatch, EventBridge, CloudTrail, X-Ray, Config e Health" },
-    { id: "15", file: "15-vpc-networking.html", title: "VPC e Networking", sub: "VPC, subnets, gateways, firewalls e conexões híbridas" },
-    { id: "16", file: "16-security-compliance.html", title: "Segurança e Compliance", sub: "Responsabilidade compartilhada, proteção, criptografia e detecção" },
-    { id: "17", file: "17-machine-learning.html", title: "Machine Learning", sub: "Serviços de IA, SageMaker e IA generativa" },
-    { id: "18", file: "18-account-billing-support.html", title: "Contas, Billing e Suporte", sub: "Organizations, modelos de preço, ferramentas de custo e planos de suporte" },
-    { id: "19", file: "19-advanced-identity.html", title: "Advanced Identity", sub: "Identity Center, Cognito, Directory Services, STS e RAM" },
-    { id: "20", file: "20-other-services.html", title: "Other Services", sub: "Migração de dados, arquivos, backup, desktops, apps e mídia" },
-    { id: "21", file: "21-architecting-ecosystem.html", title: "Architecting e Ecossistema", sub: "Well-Architected, CAF, migração e recursos de apoio" },
-    { id: "22", file: "22-preparing-exam.html", title: "Preparando para a prova", sub: "Formato, estratégia, mapa gatilho → serviço e checklist final" }
+  const REPO_SOURCE_URL = "https://github.com/rbll0/clf-c02-study-notes-pt-br/blob/main/";
+  const STORAGE_READ = "clf-c02-read";
+  const STORAGE_LAST = "clf-c02-last";
+  const STORAGE_THEME = "clf-c02-shell-theme";
+
+  // Domain names and weights come from 00-visao-geral-clf-c02 and 22-preparing-exam.
+  const DOMAINS = [
+    { key: "d1", name: "Conceitos de nuvem", weight: 24, color: "var(--domain-1)" },
+    { key: "d2", name: "Segurança e compliance", weight: 30, color: "var(--domain-2)" },
+    { key: "d3", name: "Tecnologia e serviços", weight: 34, color: "var(--domain-3)" },
+    { key: "d4", name: "Cobrança e suporte", weight: 12, color: "var(--domain-4)" }
   ];
 
-  const STORAGE_KEY = "clf-c02-read";
+  // Course order. "domain" is the main exam domain of each section (an approximation:
+  // several sections touch more than one domain). Overview and exam prep have none.
+  const SECTIONS = [
+    { id: "00", label: "Visão geral", group: "overview", file: "00-visao-geral-clf-c02", title: "Visão geral da prova", sub: "conceitos por domínio" },
+    { id: "03", label: "Seção 3", domain: "d1", file: "03-what-is-cloud-computing", title: "O que é Cloud Computing?", sub: "datacenter nuvem iaas paas saas" },
+    { id: "04", label: "Seção 4", domain: "d2", file: "04-iam", title: "IAM", sub: "identity access usuários grupos roles políticas" },
+    { id: "05", label: "Seção 5", domain: "d3", file: "05-ec2", title: "EC2", sub: "servidores virtuais instâncias" },
+    { id: "06", label: "Seção 6", domain: "d3", file: "06-ec2-instance-storage", title: "EC2 Instance Storage", sub: "ebs efs instance store" },
+    { id: "07", label: "Seção 7", domain: "d3", file: "07-elb-asg", title: "ELB e ASG", sub: "load balancer auto scaling" },
+    { id: "08", label: "Seção 8", domain: "d3", file: "08-s3", title: "Amazon S3", sub: "buckets objetos classes de armazenamento glacier" },
+    { id: "09", label: "Seção 9", domain: "d3", file: "09-databases-analytics", title: "Databases e Analytics", sub: "rds aurora dynamodb redshift athena" },
+    { id: "10", label: "Seção 10", domain: "d3", file: "10-other-compute", title: "Outros serviços de computação", sub: "ecs fargate eks lambda batch lightsail" },
+    { id: "11", label: "Seção 11", domain: "d3", file: "11-deployments-infra", title: "Deployments e infraestrutura", sub: "cloudformation cdk beanstalk systems manager" },
+    { id: "12", label: "Seção 12", domain: "d3", file: "12-global-infrastructure", title: "Infraestrutura global", sub: "regiões az edge route 53 cloudfront" },
+    { id: "13", label: "Seção 13", domain: "d3", file: "13-cloud-integrations", title: "Cloud Integrations", sub: "sqs sns kinesis mq eventbridge step functions" },
+    { id: "14", label: "Seção 14", domain: "d3", file: "14-cloud-monitoring", title: "Cloud Monitoring", sub: "cloudwatch cloudtrail x-ray config health" },
+    { id: "15", label: "Seção 15", domain: "d3", file: "15-vpc-networking", title: "VPC e Networking", sub: "subnets gateways security group nacl vpn direct connect" },
+    { id: "16", label: "Seção 16", domain: "d2", file: "16-security-compliance", title: "Segurança e Compliance", sub: "shield waf kms guardduty inspector macie artifact" },
+    { id: "17", label: "Seção 17", domain: "d3", file: "17-machine-learning", title: "Machine Learning", sub: "sagemaker rekognition bedrock ia generativa" },
+    { id: "18", label: "Seção 18", domain: "d4", file: "18-account-billing-support", title: "Contas, Billing e Suporte", sub: "organizations preços custo planos de suporte" },
+    { id: "19", label: "Seção 19", domain: "d2", file: "19-advanced-identity", title: "Advanced Identity", sub: "identity center cognito directory sts ram" },
+    { id: "20", label: "Seção 20", domain: "d3", file: "20-other-services", title: "Other Services", sub: "snow datasync backup workspaces api gateway" },
+    { id: "21", label: "Seção 21", domain: "d1", file: "21-architecting-ecosystem", title: "Architecting e Ecossistema", sub: "well-architected caf migração" },
+    { id: "22", label: "Preparação", group: "exam", file: "22-preparing-exam", title: "Preparando para a prova", sub: "estratégia checklist gatilho serviço" }
+  ];
+
+  const domainByKey = Object.fromEntries(DOMAINS.map((domain) => [domain.key, domain]));
+  const sectionById = Object.fromEntries(SECTIONS.map((section) => [section.id, section]));
+
+  const elements = {
+    toc: document.getElementById("toc"),
+    tocEmpty: document.getElementById("tocEmpty"),
+    search: document.getElementById("search"),
+    coverageBar: document.getElementById("coverageBar"),
+    coveragePercent: document.getElementById("coveragePercent"),
+    readSummary: document.getElementById("readSummary"),
+    frame: document.getElementById("frame"),
+    currentTitle: document.getElementById("currentTitle"),
+    currentDomain: document.getElementById("currentDomain"),
+    readToggle: document.getElementById("readToggle"),
+    prevLink: document.getElementById("prevLink"),
+    nextLink: document.getElementById("nextLink"),
+    prevTitle: document.getElementById("prevTitle"),
+    nextTitle: document.getElementById("nextTitle"),
+    openAlone: document.getElementById("openAlone"),
+    openSource: document.getElementById("openSource"),
+    themeButton: document.getElementById("themeButton"),
+    menuButton: document.getElementById("menuButton")
+  };
+
   let readIds = new Set();
+  let currentId = null;
+  let themeChoice = "auto";
 
-  function loadRead() {
+  /* ---------- Storage (all access guarded) ---------- */
+  function readStorage(key) {
+    try { return localStorage.getItem(key); } catch (error) { return null; }
+  }
+  function writeStorage(key, value) {
+    try { localStorage.setItem(key, value); } catch (error) { /* storage unavailable */ }
+  }
+  function loadState() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) readIds = new Set(JSON.parse(raw));
+      const stored = JSON.parse(readStorage(STORAGE_READ) || "[]");
+      readIds = new Set(stored.filter((id) => sectionById[id]));
     } catch (error) { readIds = new Set(); }
+    const storedTheme = readStorage(STORAGE_THEME);
+    if (storedTheme === "light" || storedTheme === "dark") themeChoice = storedTheme;
+  }
+  function saveReadIds() { writeStorage(STORAGE_READ, JSON.stringify([...readIds])); }
+
+  /* ---------- Coverage bar and table of contents ---------- */
+  function buildCoverageBar() {
+    DOMAINS.forEach((domain) => {
+      const segment = document.createElement("div");
+      segment.className = "coverage-segment";
+      segment.style.flex = domain.weight + " 1 0";
+      segment.style.setProperty("--segment-color", domain.color);
+      segment.title = domain.name + " · " + domain.weight + "% da prova";
+      segment.dataset.domain = domain.key;
+      const fill = document.createElement("div");
+      fill.className = "coverage-fill";
+      segment.append(fill);
+      elements.coverageBar.append(segment);
+    });
   }
 
-  function saveRead() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...readIds])); } catch (error) {}
+  function createItem(section) {
+    const link = document.createElement("a");
+    link.className = "item";
+    link.href = "#s" + section.id;
+    link.dataset.id = section.id;
+    link.dataset.search = (section.label + " " + section.title + " " + section.sub).toLowerCase();
+    if (section.domain) link.style.setProperty("--segment-color", domainByKey[section.domain].color);
+
+    const box = document.createElement("span");
+    box.className = "item-box";
+    const text = document.createElement("span");
+    const label = document.createElement("span");
+    label.className = "item-label";
+    label.textContent = section.label;
+    const title = document.createElement("span");
+    title.className = "item-title";
+    title.textContent = section.title;
+    text.append(label, title);
+    link.append(box, text);
+    return link;
   }
 
-  const listEl = document.getElementById("list");
-  const searchEl = document.getElementById("search");
-  const emptyEl = document.getElementById("empty");
+  function createGroup({ name, weight, color, sections, domainKey }) {
+    const group = document.createElement("section");
+    group.className = "group";
+    if (domainKey) group.dataset.domain = domainKey;
+    const head = document.createElement("div");
+    head.className = "group-head";
+    if (color) {
+      head.style.setProperty("--segment-color", color);
+      const swatch = document.createElement("span");
+      swatch.className = "swatch";
+      head.append(swatch);
+    }
+    const nameEl = document.createElement("span");
+    nameEl.className = "group-name";
+    nameEl.textContent = weight ? name + " · " + weight + "%" : name;
+    const count = document.createElement("span");
+    count.className = "group-count";
+    head.append(nameEl, count);
+    group.append(head, ...sections.map(createItem));
+    return group;
+  }
 
-  function buildList() {
+  function buildToc() {
     const fragment = document.createDocumentFragment();
-    SECTIONS.forEach((section) => {
-      const item = document.createElement("li");
-      item.dataset.id = section.id;
-      item.dataset.search = (section.id + " " + section.title + " " + section.sub).toLowerCase();
-
-      const num = document.createElement("span");
-      num.className = "num";
-      num.textContent = section.id;
-
-      const body = document.createElement("div");
-      body.className = "body";
-      const link = document.createElement("a");
-      link.href = section.file;
-      link.textContent = section.title;
-      const sub = document.createElement("span");
-      sub.className = "sub";
-      sub.textContent = section.sub;
-      body.append(link, sub);
-
-      const label = document.createElement("label");
-      label.className = "check";
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = "read-" + section.id;
-      checkbox.setAttribute("aria-label", "Marcar seção " + section.id + " como lida");
-      checkbox.addEventListener("change", () => {
-        if (checkbox.checked) readIds.add(section.id); else readIds.delete(section.id);
-        saveRead();
-        refresh();
-      });
-      const text = document.createElement("span");
-      text.textContent = "lida";
-      label.append(checkbox, text);
-
-      item.append(num, body, label);
-      fragment.append(item);
+    fragment.append(createGroup({ name: "Mapa", sections: SECTIONS.filter((section) => section.group === "overview") }));
+    DOMAINS.forEach((domain) => {
+      fragment.append(createGroup({
+        name: domain.name,
+        weight: domain.weight,
+        color: domain.color,
+        domainKey: domain.key,
+        sections: SECTIONS.filter((section) => section.domain === domain.key)
+      }));
     });
-    listEl.append(fragment);
+    fragment.append(createGroup({ name: "Prova", sections: SECTIONS.filter((section) => section.group === "exam") }));
+    elements.toc.append(fragment);
   }
 
-  function refresh() {
-    let doneCount = 0;
-    let firstUnread = null;
-    SECTIONS.forEach((section) => {
-      const item = listEl.querySelector('[data-id="' + section.id + '"]');
-      const isRead = readIds.has(section.id);
-      item.classList.toggle("read", isRead);
-      item.querySelector("input").checked = isRead;
-      if (isRead) doneCount += 1;
-      else if (!firstUnread) firstUnread = section;
+  function refreshProgress() {
+    let weightedCoverage = 0;
+    DOMAINS.forEach((domain) => {
+      const domainSections = SECTIONS.filter((section) => section.domain === domain.key);
+      const readCount = domainSections.filter((section) => readIds.has(section.id)).length;
+      const fraction = readCount / domainSections.length;
+      weightedCoverage += domain.weight * fraction;
+      elements.coverageBar.querySelector('[data-domain="' + domain.key + '"] .coverage-fill').style.width = fraction * 100 + "%";
+      const group = elements.toc.querySelector('.group[data-domain="' + domain.key + '"] .group-count');
+      group.textContent = readCount + "/" + domainSections.length;
     });
-    const total = SECTIONS.length;
-    const percent = Math.round((doneCount / total) * 100);
-    document.getElementById("doneCount").textContent = doneCount;
-    document.getElementById("totalCount").textContent = total;
-    document.getElementById("barFill").style.width = percent + "%";
-    document.getElementById("bar").setAttribute("aria-valuenow", percent);
+    elements.coveragePercent.textContent = Math.round(weightedCoverage) + "%";
+    elements.menuButton.textContent = "Seções · " + Math.round(weightedCoverage) + "%";
+    elements.readSummary.textContent = readIds.size + " de " + SECTIONS.length + " lidas";
+    elements.toc.querySelectorAll(".item").forEach((item) => {
+      item.classList.toggle("is-read", readIds.has(item.dataset.id));
+    });
+    updateReadToggle();
+  }
 
-    const resume = document.getElementById("resume");
-    if (firstUnread) {
-      resume.hidden = false;
-      resume.href = firstUnread.file;
-      resume.textContent = (doneCount === 0 ? "Começar pela " : "Continuar na ") + firstUnread.id;
+  function updateReadToggle() {
+    const isRead = currentId && readIds.has(currentId);
+    elements.readToggle.setAttribute("aria-pressed", String(Boolean(isRead)));
+    elements.readToggle.textContent = isRead ? "Lida · desmarcar" : "Marcar como lida";
+  }
+
+  function applySearch() {
+    const terms = elements.search.value.toLowerCase().split(/\s+/).filter(Boolean);
+    let visibleCount = 0;
+    elements.toc.querySelectorAll(".item").forEach((item) => {
+      const matches = terms.every((term) => item.dataset.search.includes(term));
+      item.hidden = !matches;
+      if (matches) visibleCount += 1;
+    });
+    elements.toc.querySelectorAll(".group").forEach((group) => {
+      group.hidden = !group.querySelector(".item:not([hidden])");
+    });
+    elements.tocEmpty.hidden = visibleCount > 0;
+  }
+
+  /* ---------- Reader ---------- */
+  function applyShellTheme() {
+    const root = document.documentElement;
+    if (themeChoice === "auto") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", themeChoice);
+    elements.themeButton.textContent = "Tema: " + { auto: "auto", light: "claro", dark: "escuro" }[themeChoice];
+  }
+
+  // Same-origin only (GitHub Pages). On file:// the frame is cross-origin and the page keeps its own mode.
+  function applyThemeToFrame() {
+    try {
+      const frameRoot = elements.frame.contentDocument && elements.frame.contentDocument.documentElement;
+      if (frameRoot) frameRoot.setAttribute("data-mode", themeChoice);
+    } catch (error) { /* cross-origin frame */ }
+  }
+
+  function bindFrameKeys() {
+    try {
+      elements.frame.contentDocument.addEventListener("keydown", handleKey);
+    } catch (error) { /* cross-origin frame */ }
+  }
+
+  function neighborOf(id, offset) {
+    const index = SECTIONS.findIndex((section) => section.id === id);
+    return SECTIONS[index + offset] || null;
+  }
+
+  function setPagerLink(link, titleEl, section) {
+    if (section) {
+      link.href = "#s" + section.id;
+      link.removeAttribute("aria-disabled");
+      titleEl.textContent = section.title;
     } else {
-      resume.hidden = true;
+      link.removeAttribute("href");
+      link.setAttribute("aria-disabled", "true");
+      titleEl.textContent = "";
     }
   }
 
-  function applyFilter() {
-    const terms = searchEl.value.toLowerCase().split(/\s+/).filter(Boolean);
-    let visible = 0;
-    listEl.querySelectorAll("li").forEach((item) => {
-      const matches = terms.every((term) => item.dataset.search.includes(term));
-      item.hidden = !matches;
-      if (matches) visible += 1;
+  function openSection(id) {
+    const section = sectionById[id];
+    if (!section) return;
+    currentId = id;
+    writeStorage(STORAGE_LAST, id);
+    if (location.hash !== "#s" + id) history.replaceState(null, "", "#s" + id);
+
+    elements.frame.classList.remove("is-ready");
+    elements.frame.src = section.file + ".html";
+    elements.currentTitle.textContent = section.title;
+    document.title = section.title + " · Estudo CLF-C02";
+
+    const domain = section.domain ? domainByKey[section.domain] : null;
+    elements.currentDomain.replaceChildren();
+    elements.currentDomain.style.removeProperty("--segment-color");
+    if (domain) {
+      elements.currentDomain.style.setProperty("--segment-color", domain.color);
+      const swatch = document.createElement("span");
+      swatch.className = "swatch";
+      elements.currentDomain.append(swatch);
+    }
+    const descriptor = domain ? section.label + " · " + domain.name + " · " + domain.weight + "% da prova" : section.label;
+    const descriptorEl = document.createElement("span");
+    descriptorEl.className = "descriptor";
+    descriptorEl.textContent = descriptor;
+    elements.currentDomain.append(descriptorEl);
+
+    elements.openAlone.href = section.file + ".html";
+    elements.openSource.href = REPO_SOURCE_URL + section.file + ".md";
+    setPagerLink(elements.prevLink, elements.prevTitle, neighborOf(id, -1));
+    setPagerLink(elements.nextLink, elements.nextTitle, neighborOf(id, 1));
+
+    elements.toc.querySelectorAll(".item").forEach((item) => {
+      if (item.dataset.id === id) {
+        item.setAttribute("aria-current", "page");
+        item.scrollIntoView({ block: "nearest" });
+      } else {
+        item.removeAttribute("aria-current");
+      }
     });
-    emptyEl.hidden = visible > 0;
+    updateReadToggle();
+    document.body.classList.remove("drawer-open");
+    elements.menuButton.setAttribute("aria-expanded", "false");
   }
 
-  searchEl.addEventListener("input", applyFilter);
-  document.getElementById("reset").addEventListener("click", () => {
+  function resolveInitialId() {
+    const fromHash = location.hash.match(/^#s(\d\d)$/);
+    if (fromHash && sectionById[fromHash[1]]) return fromHash[1];
+    const last = readStorage(STORAGE_LAST);
+    if (last && sectionById[last]) return last;
+    const firstUnread = SECTIONS.find((section) => !readIds.has(section.id));
+    return (firstUnread || SECTIONS[0]).id;
+  }
+
+  function toggleCurrentRead() {
+    if (!currentId) return;
+    if (readIds.has(currentId)) readIds.delete(currentId); else readIds.add(currentId);
+    saveReadIds();
+    refreshProgress();
+  }
+
+  function goTo(section) {
+    if (section) location.hash = "#s" + section.id;
+  }
+
+  function handleKey(event) {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    const isTyping = event.target && event.target.tagName === "INPUT";
+    if (event.key === "/" && !isTyping) {
+      event.preventDefault();
+      document.body.classList.add("drawer-open");
+      elements.search.focus();
+      return;
+    }
+    if (isTyping) return;
+    if (event.key === "ArrowRight" || event.key === "j") goTo(neighborOf(currentId, 1));
+    else if (event.key === "ArrowLeft" || event.key === "k") goTo(neighborOf(currentId, -1));
+    else if (event.key === "m") toggleCurrentRead();
+  }
+
+  /* ---------- Wiring ---------- */
+  elements.frame.addEventListener("load", () => {
+    applyThemeToFrame();
+    bindFrameKeys();
+    elements.frame.classList.add("is-ready");
+  });
+  window.addEventListener("hashchange", () => {
+    const match = location.hash.match(/^#s(\d\d)$/);
+    if (match) openSection(match[1]);
+  });
+  document.addEventListener("keydown", handleKey);
+  elements.search.addEventListener("input", applySearch);
+  elements.readToggle.addEventListener("click", toggleCurrentRead);
+  elements.themeButton.addEventListener("click", () => {
+    themeChoice = { auto: "light", light: "dark", dark: "auto" }[themeChoice];
+    writeStorage(STORAGE_THEME, themeChoice);
+    applyShellTheme();
+    applyThemeToFrame();
+  });
+  elements.menuButton.addEventListener("click", () => {
+    const isOpen = document.body.classList.toggle("drawer-open");
+    elements.menuButton.setAttribute("aria-expanded", String(isOpen));
+  });
+  document.getElementById("scrim").addEventListener("click", () => {
+    document.body.classList.remove("drawer-open");
+    elements.menuButton.setAttribute("aria-expanded", "false");
+  });
+  document.getElementById("resetProgress").addEventListener("click", () => {
     readIds = new Set();
-    saveRead();
-    refresh();
+    saveReadIds();
+    refreshProgress();
   });
 
-  loadRead();
-  buildList();
-  refresh();
+  loadState();
+  applyShellTheme();
+  buildCoverageBar();
+  buildToc();
+  refreshProgress();
+  openSection(resolveInitialId());
 </script>
+</body>
+</html>
