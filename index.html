@@ -5,67 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Estudo CLF-C02</title>
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a1730'/%3E%3Crect x='4' y='20' width='6' height='8' fill='%234d8dff'/%3E%3Crect x='12' y='14' width='6' height='14' fill='%232cc08a'/%3E%3Crect x='20' y='6' width='8' height='22' fill='%239a7dff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230f1226'/%3E%3Crect x='3' y='3' width='14' height='26' fill='%23b55cff'/%3E%3Crect x='19' y='3' width='10' height='15' fill='%2319c08f'/%3E%3Crect x='19' y='20' width='6' height='9' fill='%233d6bff'/%3E%3Crect x='27' y='20' width='2' height='9' fill='%23ffb21f'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
   /*
-    Layout: fixed-height reader. Dark navy rail on the left (exam coverage bar + section list),
-    content frame on the right with a slim top bar and a bottom pager.
-    Signature: the coverage bar is cut into four segments sized by the real exam weights
-    (24/30/34/12) and each fills as the sections of that domain are marked as read.
+    Two views. Home: a treemap of the exam, one block per domain sized by its real weight
+    (24/30/34/12), one tile per course section that fills with the domain color once read.
+    Reader: ink rail with the section list + the section page in a frame.
   */
   :root {
-    --page: #e6ecf4;
+    --paper: #e8ecf8;
     --surface: #ffffff;
-    --ink: #0e1726;
-    --ink-2: #48566a;
-    --line: #c9d3e1;
-    --accent: #2457d6;
+    --ink: #0f1226;
+    --ink-2: #4c5272;
+    --line: #cbd2ea;
+    --accent: #2f5fe8;
     --accent-ink: #ffffff;
 
-    --rail: #0a1730;
-    --rail-ink: #e4ebf5;
-    --rail-ink-2: #8d9fba;
-    --rail-line: #1d2e4d;
-    --rail-hover: #12244a;
-    --rail-current: #183061;
+    --rail: #0f1226;
+    --rail-ink: #e9ecfa;
+    --rail-ink-2: #8f96bd;
+    --rail-line: #232846;
+    --rail-hover: #1a1f3d;
+    --rail-current: #262d5a;
 
-    --domain-1: #4d8dff;
-    --domain-2: #2cc08a;
-    --domain-3: #9a7dff;
-    --domain-4: #f0b042;
+    --domain-1: #3d6bff;
+    --domain-2: #19c08f;
+    --domain-3: #b55cff;
+    --domain-4: #ffb21f;
+    --on-domain-1: #ffffff;
+    --on-domain-2: #0f1226;
+    --on-domain-3: #0f1226;
+    --on-domain-4: #0f1226;
 
-    --font-ui: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+    --font-ui: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
     --rail-width: 330px;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --page: #060d1a;
-      --surface: #0d1c31;
-      --ink: #e6edf7;
-      --ink-2: #9fb0c6;
-      --line: #1f3252;
-      --accent: #6ea8ff;
-      --accent-ink: #061226;
-      --rail: #08122a;
-      --rail-line: #1a2a47;
+      --paper: #090b19;
+      --surface: #131730;
+      --ink: #eceffc;
+      --ink-2: #9aa2c8;
+      --line: #252b4d;
+      --accent: #7c9bff;
+      --accent-ink: #090b19;
+      --rail: #0d1024;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --page: #060d1a;
-    --surface: #0d1c31;
-    --ink: #e6edf7;
-    --ink-2: #9fb0c6;
-    --line: #1f3252;
-    --accent: #6ea8ff;
-    --accent-ink: #061226;
-    --rail: #08122a;
-    --rail-line: #1a2a47;
+    --paper: #090b19;
+    --surface: #131730;
+    --ink: #eceffc;
+    --ink-2: #9aa2c8;
+    --line: #252b4d;
+    --accent: #7c9bff;
+    --accent-ink: #090b19;
+    --rail: #0d1024;
     color-scheme: dark;
   }
 
@@ -73,7 +75,7 @@
   html, body { height: 100%; }
   body {
     margin: 0;
-    background: var(--page);
+    background: var(--paper);
     color: var(--ink);
     font-family: var(--font-ui);
     font-size: 15px;
@@ -84,7 +86,117 @@
   }
   button, input { font: inherit; color: inherit; }
   a { color: inherit; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  body.view-home { grid-template-columns: minmax(0, 1fr); }
+  body.view-home .rail, body.view-home .reader, body.view-home .scrim { display: none; }
+  body.view-reader .home { display: none; }
+
+  .tool {
+    background: transparent;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .tool:hover { border-color: var(--ink-2); }
+
+  /* ---------- Home ---------- */
+  .home { height: 100%; overflow-y: auto; }
+  .home-inner { max-width: 1240px; margin-inline: auto; padding: 20px 20px 48px; display: grid; gap: 20px; }
+  .home-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+  .hero { display: grid; gap: 14px; padding-block: 12px 4px; }
+  .hero h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(48px, 9vw, 112px);
+    line-height: 0.92;
+    font-weight: 800;
+    font-stretch: 78%;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .hero-lead { margin: 0; max-width: 56ch; font-size: 17px; color: var(--ink-2); }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+  .cta {
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+  }
+  .cta:hover { background: var(--accent); color: var(--accent-ink); }
+  .coverage-chip { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
+  .coverage-chip strong { color: var(--ink); font-weight: 500; }
+
+  .map { display: flex; gap: 12px; height: clamp(700px, calc(100dvh - 100px), 900px); }
+  .map-col { display: flex; flex-direction: column; gap: 12px; min-width: 0; min-height: 0; }
+  .domain {
+    --domain-color: var(--domain-1);
+    --on-domain: var(--on-domain-1);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--domain-color) 13%, var(--surface));
+    border-top: 6px solid var(--domain-color);
+  }
+  .domain[data-domain="d1"] { --domain-color: var(--domain-1); --on-domain: var(--on-domain-1); }
+  .domain[data-domain="d2"] { --domain-color: var(--domain-2); --on-domain: var(--on-domain-2); }
+  .domain[data-domain="d3"] { --domain-color: var(--domain-3); --on-domain: var(--on-domain-3); }
+  .domain[data-domain="d4"] { --domain-color: var(--domain-4); --on-domain: var(--on-domain-4); }
+  .domain-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .domain-name { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 1.05; font-stretch: 88%; }
+  .domain-weight { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+  .domain-count { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); margin-top: -8px; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(124px, 1fr)); grid-auto-rows: minmax(76px, 1fr); gap: 8px; flex: 1; min-height: 0; overflow-y: auto; }
+  .tile {
+    --tile-color: var(--domain-color, var(--ink));
+    --on-tile: var(--on-domain, var(--paper));
+    position: relative;
+    display: grid;
+    gap: 2px;
+    align-content: start;
+    padding: 10px 12px 12px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 2px solid color-mix(in srgb, var(--tile-color) 55%, transparent);
+    text-decoration: none;
+    animation: tile-in 0.4s ease both;
+    animation-delay: calc(var(--tile-index, 0) * 30ms);
+    transition: transform 0.12s ease, background-color 0.2s ease;
+  }
+  .tile:hover { transform: translateY(-2px); border-color: var(--tile-color); }
+  .tile-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--ink-2); }
+  .tile-title { font-family: var(--font-display); font-weight: 600; font-size: 16px; line-height: 1.15; overflow-wrap: anywhere; }
+  .tile.is-read { background: var(--tile-color); border-color: var(--tile-color); color: var(--on-tile); }
+  .tile.is-read .tile-label { color: inherit; opacity: 0.75; }
+  .tile.is-read::after {
+    content: "";
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    width: 10px;
+    height: 5px;
+    border-left: 2.5px solid currentColor;
+    border-bottom: 2.5px solid currentColor;
+    transform: rotate(-45deg);
+  }
+  @keyframes tile-in { from { opacity: 0; transform: scale(0.96); } }
+
+  .strips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .strips .tile { --tile-color: var(--ink); --on-tile: var(--paper); grid-template-columns: auto 1fr; align-items: baseline; column-gap: 14px; padding: 14px 16px; }
+  .strips .tile.is-read::after { top: 50%; margin-top: -3px; }
+  .map-note { margin: 0; font-size: 13px; color: var(--ink-2); max-width: 70ch; }
 
   /* ---------- Rail ---------- */
   .rail {
@@ -96,32 +208,25 @@
     border-right: 1px solid var(--rail-line);
   }
   .rail-head { padding: 22px 20px 16px; display: grid; gap: 14px; }
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--rail-ink-2);
-  }
+  .rail .eyebrow { color: var(--rail-ink-2); font-size: 11px; }
   .brand {
+    display: block;
     margin: 0;
-    font-size: 34px;
-    line-height: 1;
+    font-family: var(--font-display);
+    font-size: 40px;
+    line-height: 0.95;
     font-weight: 800;
-    font-stretch: 118%;
+    font-stretch: 78%;
     letter-spacing: -0.01em;
+    text-decoration: none;
+    color: inherit;
   }
+  .brand:hover { color: var(--domain-3); }
 
   .coverage { display: grid; gap: 8px; }
   .coverage-bar { display: flex; gap: 3px; height: 14px; }
   .coverage-segment { background: color-mix(in srgb, var(--segment-color) 24%, var(--rail-line)); position: relative; overflow: hidden; }
-  .coverage-fill {
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 0;
-    background: var(--segment-color);
-    transition: width 0.3s ease;
-  }
+  .coverage-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--segment-color); transition: width 0.3s ease; }
   .coverage-caption { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--rail-ink-2); }
   .coverage-caption strong { color: var(--rail-ink); font-variant-numeric: tabular-nums; }
 
@@ -130,7 +235,7 @@
     width: 100%;
     background: var(--rail-hover);
     border: 1px solid var(--rail-line);
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 9px 12px;
     color: var(--rail-ink);
   }
@@ -167,14 +272,7 @@
   .item[hidden] { display: none; }
   .item:hover { background: var(--rail-hover); }
   .item[aria-current="page"] { background: var(--rail-current); border-left-color: var(--segment-color, var(--rail-ink)); }
-  .item-box {
-    width: 14px;
-    height: 14px;
-    margin-top: 3px;
-    border: 1.5px solid var(--rail-ink-2);
-    display: grid;
-    place-items: center;
-  }
+  .item-box { width: 14px; height: 14px; margin-top: 3px; border: 1.5px solid var(--rail-ink-2); display: grid; place-items: center; }
   .item.is-read .item-box { background: var(--segment-color, var(--rail-ink-2)); border-color: var(--segment-color, var(--rail-ink-2)); }
   .item.is-read .item-box::after { content: ""; width: 6px; height: 3px; border-left: 2px solid var(--rail); border-bottom: 2px solid var(--rail); transform: translateY(-1px) rotate(-45deg); }
   .item-label { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--rail-ink-2); letter-spacing: 0.04em; }
@@ -189,34 +287,14 @@
 
   /* ---------- Reader ---------- */
   .reader { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-width: 0; min-height: 0; height: 100%; }
-  .topbar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 16px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    min-height: 52px;
-  }
+  .topbar { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--line); min-height: 52px; }
   .menu-button { display: none; }
   .current { flex: 1; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); }
-  .current-title { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .current-domain { font-family: var(--font-mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.04em; display: flex; align-items: center; gap: 6px; }
-  .current-domain { min-width: 0; }
+  .current-title { font-family: var(--font-display); font-weight: 700; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .current-domain { min-width: 0; font-family: var(--font-mono); font-size: 11px; color: var(--ink-2); letter-spacing: 0.04em; display: flex; align-items: center; gap: 6px; }
   .current-domain .swatch { flex: none; width: 8px; height: 8px; background: var(--segment-color, var(--ink-2)); }
   .current-domain .descriptor { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tools { display: flex; align-items: center; gap: 8px; }
-  .tool {
-    background: transparent;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 6px 10px;
-    font-size: 13px;
-    text-decoration: none;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .tool:hover { border-color: var(--ink-2); }
 
   .frame-wrap { position: relative; background: var(--surface); min-height: 0; }
   .frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: var(--surface); opacity: 0; transition: opacity 0.12s ease; }
@@ -231,7 +309,7 @@
     background: var(--surface);
     border-top: 1px solid var(--line);
   }
-  .pager-link { display: grid; gap: 1px; padding: 6px 10px; border: 1px solid transparent; border-radius: 6px; text-decoration: none; min-width: 0; }
+  .pager-link { display: grid; gap: 1px; padding: 6px 10px; border: 1px solid transparent; border-radius: 8px; text-decoration: none; min-width: 0; }
   .pager-link:hover { border-color: var(--line); }
   .pager-link[aria-disabled="true"] { visibility: hidden; }
   .pager-link.next { text-align: right; }
@@ -240,10 +318,10 @@
   .read-toggle {
     background: var(--accent);
     color: var(--accent-ink);
-    border: 1px solid var(--accent);
-    border-radius: 6px;
+    border: 1.5px solid var(--accent);
+    border-radius: 10px;
     padding: 9px 16px;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
   }
@@ -251,7 +329,18 @@
 
   .scrim { display: none; }
 
-  /* ---------- Narrow screens: rail becomes a drawer ---------- */
+  /* ---------- Narrow screens ---------- */
+  @media (max-width: 980px) {
+    .map { flex-direction: column; height: auto; }
+    .map-col { display: contents; }
+    .domain { flex: none !important; }
+    .domain[data-domain="d1"] { order: 1; }
+    .domain[data-domain="d2"] { order: 2; }
+    .domain[data-domain="d3"] { order: 3; }
+    .domain[data-domain="d4"] { order: 4; }
+    .tiles { overflow: visible; }
+    .strips { grid-template-columns: minmax(0, 1fr); }
+  }
   @media (max-width: 860px) {
     body { grid-template-columns: minmax(0, 1fr); }
     .rail {
@@ -264,7 +353,7 @@
       padding-top: env(safe-area-inset-top, 0px);
     }
     body.drawer-open .rail { transform: none; }
-    body.drawer-open .scrim { display: block; position: fixed; inset: 0; background: rgba(4, 10, 22, 0.55); z-index: 10; }
+    body.drawer-open .scrim { display: block; position: fixed; inset: 0; background: rgba(4, 6, 18, 0.6); z-index: 10; }
     .menu-button { display: inline-block; }
     .tool-source, .tool-open { display: none; }
     .pager { grid-template-columns: auto minmax(0, 1fr) auto; }
@@ -273,18 +362,41 @@
     .pager-link::before { content: attr(data-arrow); font-size: 20px; line-height: 1; }
     .read-toggle { width: 100%; }
   }
+  @media (max-width: 480px) {
+    .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
   }
 </style>
 </head>
-<body>
+<body class="view-home">
+  <section class="home" id="home" aria-label="Mapa da prova">
+    <div class="home-inner">
+      <div class="home-top">
+        <span class="eyebrow">AWS Certified Cloud Practitioner · CLF-C02</span>
+        <button type="button" class="tool" data-theme-button title="Alternar tema">Tema: auto</button>
+      </div>
+      <header class="hero">
+        <h1>Mapa da prova</h1>
+        <p class="hero-lead">65 questões, 90 minutos, nota mínima 700 de 1000. Cada bloco tem o tamanho do peso do domínio. Marque uma seção como lida e o quadrado dela acende.</p>
+        <div class="hero-actions">
+          <a class="cta" id="continueLink" href="#s00">Começar</a>
+          <span class="coverage-chip"><strong id="homeCoverage">0%</strong> da prova coberta · <span id="homeSummary">0 de 21 seções lidas</span></span>
+        </div>
+      </header>
+      <div class="map" id="map"></div>
+      <p class="map-note">Uma seção pode tocar mais de um domínio. Aqui, cada uma aparece no domínio principal dela. Os pesos vêm do guia da prova.</p>
+      <div class="strips" id="strips"></div>
+    </div>
+  </section>
+
   <aside class="rail" id="rail" aria-label="Seções do curso">
     <div class="rail-head">
       <div>
         <div class="eyebrow">AWS Certified Cloud Practitioner</div>
-        <h1 class="brand">CLF-C02</h1>
+        <a class="brand" href="#map" title="Voltar ao mapa">CLF-C02</a>
       </div>
       <div class="coverage" aria-label="Cobertura da prova">
         <div class="coverage-bar" id="coverageBar"></div>
@@ -309,12 +421,13 @@
   <main class="reader">
     <header class="topbar">
       <button type="button" class="tool menu-button" id="menuButton" aria-controls="rail" aria-expanded="false">Seções</button>
+      <a class="tool" href="#map">← Mapa</a>
       <div class="current">
         <span class="current-title" id="currentTitle">Estudo CLF-C02</span>
         <span class="current-domain" id="currentDomain"></span>
       </div>
       <div class="tools">
-        <button type="button" class="tool" id="themeButton" title="Alternar tema do leitor">Tema: auto</button>
+        <button type="button" class="tool" data-theme-button title="Alternar tema">Tema: auto</button>
         <a class="tool tool-open" id="openAlone" href="#" target="_blank" rel="noopener">Abrir sozinha</a>
         <a class="tool tool-source" id="openSource" href="#" target="_blank" rel="noopener">Ver .md</a>
       </div>
@@ -338,8 +451,8 @@
 <script>
   const REPO_SOURCE_URL = "https://github.com/rbll0/clf-c02-study-notes-pt-br/blob/main/";
   const STORAGE_READ = "clf-c02-read";
-  const STORAGE_LAST = "clf-c02-last";
   const STORAGE_THEME = "clf-c02-shell-theme";
+  const HOME_TITLE = "Estudo CLF-C02";
 
   // Domain names and weights come from 00-visao-geral-clf-c02 and 22-preparing-exam.
   const DOMAINS = [
@@ -347,6 +460,12 @@
     { key: "d2", name: "Segurança e compliance", weight: 30, color: "var(--domain-2)" },
     { key: "d3", name: "Tecnologia e serviços", weight: 34, color: "var(--domain-3)" },
     { key: "d4", name: "Cobrança e suporte", weight: 12, color: "var(--domain-4)" }
+  ];
+
+  // Treemap layout: column widths and stacking add up to the exact weights.
+  const MAP_COLUMNS = [
+    { weight: 46, domains: ["d3", "d4"] },
+    { weight: 54, domains: ["d2", "d1"] }
   ];
 
   // Course order. "domain" is the main exam domain of each section (an approximation:
@@ -385,6 +504,11 @@
     coverageBar: document.getElementById("coverageBar"),
     coveragePercent: document.getElementById("coveragePercent"),
     readSummary: document.getElementById("readSummary"),
+    map: document.getElementById("map"),
+    strips: document.getElementById("strips"),
+    continueLink: document.getElementById("continueLink"),
+    homeCoverage: document.getElementById("homeCoverage"),
+    homeSummary: document.getElementById("homeSummary"),
     frame: document.getElementById("frame"),
     currentTitle: document.getElementById("currentTitle"),
     currentDomain: document.getElementById("currentDomain"),
@@ -395,13 +519,20 @@
     nextTitle: document.getElementById("nextTitle"),
     openAlone: document.getElementById("openAlone"),
     openSource: document.getElementById("openSource"),
-    themeButton: document.getElementById("themeButton"),
+    themeButtons: document.querySelectorAll("[data-theme-button]"),
     menuButton: document.getElementById("menuButton")
   };
 
   let readIds = new Set();
   let currentId = null;
   let themeChoice = "auto";
+
+  function createElement(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
 
   /* ---------- Storage (all access guarded) ---------- */
   function readStorage(key) {
@@ -420,62 +551,83 @@
   }
   function saveReadIds() { writeStorage(STORAGE_READ, JSON.stringify([...readIds])); }
 
-  /* ---------- Coverage bar and table of contents ---------- */
+  /* ---------- Home: treemap ---------- */
+  function createTile(section, tileIndex) {
+    const tile = createElement("a", "tile");
+    tile.href = "#s" + section.id;
+    tile.dataset.id = section.id;
+    tile.title = section.sub;
+    tile.style.setProperty("--tile-index", tileIndex);
+    tile.append(createElement("span", "tile-label", section.label), createElement("span", "tile-title", section.title));
+    return tile;
+  }
+
+  function createDomainBlock(domain, firstTileIndex) {
+    const block = createElement("article", "domain");
+    block.dataset.domain = domain.key;
+    block.style.flex = domain.weight + " 1 0";
+    const head = createElement("div", "domain-head");
+    head.append(createElement("h2", "domain-name", domain.name), createElement("span", "domain-weight", domain.weight + "% da prova"));
+    const count = createElement("div", "domain-count");
+    count.dataset.domain = domain.key;
+    const tiles = createElement("div", "tiles");
+    SECTIONS.filter((section) => section.domain === domain.key)
+      .forEach((section, offset) => tiles.append(createTile(section, firstTileIndex + offset)));
+    block.append(head, count, tiles);
+    return block;
+  }
+
+  function buildHome() {
+    let tileIndex = 0;
+    MAP_COLUMNS.forEach((column) => {
+      const columnEl = createElement("div", "map-col");
+      columnEl.style.flex = column.weight + " 1 0";
+      column.domains.forEach((key) => {
+        columnEl.append(createDomainBlock(domainByKey[key], tileIndex));
+        tileIndex += 6;
+      });
+      elements.map.append(columnEl);
+    });
+    [["overview", 0], ["exam", 1]].forEach(([group, order]) => {
+      const section = SECTIONS.find((candidate) => candidate.group === group);
+      elements.strips.append(createTile(section, 14 + order));
+    });
+  }
+
+  /* ---------- Rail: coverage bar and table of contents ---------- */
   function buildCoverageBar() {
     DOMAINS.forEach((domain) => {
-      const segment = document.createElement("div");
-      segment.className = "coverage-segment";
+      const segment = createElement("div", "coverage-segment");
       segment.style.flex = domain.weight + " 1 0";
       segment.style.setProperty("--segment-color", domain.color);
       segment.title = domain.name + " · " + domain.weight + "% da prova";
       segment.dataset.domain = domain.key;
-      const fill = document.createElement("div");
-      fill.className = "coverage-fill";
-      segment.append(fill);
+      segment.append(createElement("div", "coverage-fill"));
       elements.coverageBar.append(segment);
     });
   }
 
   function createItem(section) {
-    const link = document.createElement("a");
-    link.className = "item";
+    const link = createElement("a", "item");
     link.href = "#s" + section.id;
     link.dataset.id = section.id;
     link.dataset.search = (section.label + " " + section.title + " " + section.sub).toLowerCase();
     if (section.domain) link.style.setProperty("--segment-color", domainByKey[section.domain].color);
-
-    const box = document.createElement("span");
-    box.className = "item-box";
-    const text = document.createElement("span");
-    const label = document.createElement("span");
-    label.className = "item-label";
-    label.textContent = section.label;
-    const title = document.createElement("span");
-    title.className = "item-title";
-    title.textContent = section.title;
-    text.append(label, title);
-    link.append(box, text);
+    const text = createElement("span");
+    text.append(createElement("span", "item-label", section.label), createElement("span", "item-title", section.title));
+    link.append(createElement("span", "item-box"), text);
     return link;
   }
 
   function createGroup({ name, weight, color, sections, domainKey }) {
-    const group = document.createElement("section");
-    group.className = "group";
+    const group = createElement("section", "group");
     if (domainKey) group.dataset.domain = domainKey;
-    const head = document.createElement("div");
-    head.className = "group-head";
+    const head = createElement("div", "group-head");
     if (color) {
       head.style.setProperty("--segment-color", color);
-      const swatch = document.createElement("span");
-      swatch.className = "swatch";
-      head.append(swatch);
+      head.append(createElement("span", "swatch"));
     }
-    const nameEl = document.createElement("span");
-    nameEl.className = "group-name";
-    nameEl.textContent = weight ? name + " · " + weight + "%" : name;
-    const count = document.createElement("span");
-    count.className = "group-count";
-    head.append(nameEl, count);
+    head.append(createElement("span", "group-name", weight ? name + " · " + weight + "%" : name), createElement("span", "group-count"));
     group.append(head, ...sections.map(createItem));
     return group;
   }
@@ -496,6 +648,7 @@
     elements.toc.append(fragment);
   }
 
+  /* ---------- Progress ---------- */
   function refreshProgress() {
     let weightedCoverage = 0;
     DOMAINS.forEach((domain) => {
@@ -504,15 +657,24 @@
       const fraction = readCount / domainSections.length;
       weightedCoverage += domain.weight * fraction;
       elements.coverageBar.querySelector('[data-domain="' + domain.key + '"] .coverage-fill').style.width = fraction * 100 + "%";
-      const group = elements.toc.querySelector('.group[data-domain="' + domain.key + '"] .group-count');
-      group.textContent = readCount + "/" + domainSections.length;
+      const summary = readCount + "/" + domainSections.length;
+      elements.toc.querySelector('.group[data-domain="' + domain.key + '"] .group-count').textContent = summary;
+      elements.map.querySelector('.domain-count[data-domain="' + domain.key + '"]').textContent = summary + " lidas";
     });
-    elements.coveragePercent.textContent = Math.round(weightedCoverage) + "%";
-    elements.menuButton.textContent = "Seções · " + Math.round(weightedCoverage) + "%";
+    const percent = Math.round(weightedCoverage) + "%";
+    elements.coveragePercent.textContent = percent;
+    elements.homeCoverage.textContent = percent;
+    elements.menuButton.textContent = "Seções · " + percent;
     elements.readSummary.textContent = readIds.size + " de " + SECTIONS.length + " lidas";
-    elements.toc.querySelectorAll(".item").forEach((item) => {
-      item.classList.toggle("is-read", readIds.has(item.dataset.id));
+    elements.homeSummary.textContent = readIds.size + " de " + SECTIONS.length + " seções lidas";
+    document.querySelectorAll(".item, .tile").forEach((node) => {
+      node.classList.toggle("is-read", readIds.has(node.dataset.id));
     });
+
+    const nextUnread = SECTIONS.find((section) => !readIds.has(section.id));
+    const target = nextUnread || SECTIONS[0];
+    elements.continueLink.href = "#s" + target.id;
+    elements.continueLink.textContent = (readIds.size === 0 ? "Começar" : nextUnread ? "Continuar" : "Rever") + ": " + target.title;
     updateReadToggle();
   }
 
@@ -536,15 +698,16 @@
     elements.tocEmpty.hidden = visibleCount > 0;
   }
 
-  /* ---------- Reader ---------- */
+  /* ---------- Theme ---------- */
   function applyShellTheme() {
     const root = document.documentElement;
     if (themeChoice === "auto") root.removeAttribute("data-theme");
     else root.setAttribute("data-theme", themeChoice);
-    elements.themeButton.textContent = "Tema: " + { auto: "auto", light: "claro", dark: "escuro" }[themeChoice];
+    const label = "Tema: " + { auto: "auto", light: "claro", dark: "escuro" }[themeChoice];
+    elements.themeButtons.forEach((button) => { button.textContent = label; });
   }
 
-  // Same-origin only (GitHub Pages). On file:// the frame is cross-origin and the page keeps its own mode.
+  // Same-origin only (GitHub Pages, Vercel). On file:// the frame is cross-origin and keeps its own mode.
   function applyThemeToFrame() {
     try {
       const frameRoot = elements.frame.contentDocument && elements.frame.contentDocument.documentElement;
@@ -558,6 +721,7 @@
     } catch (error) { /* cross-origin frame */ }
   }
 
+  /* ---------- Views ---------- */
   function neighborOf(id, offset) {
     const index = SECTIONS.findIndex((section) => section.id === id);
     return SECTIONS[index + offset] || null;
@@ -575,32 +739,38 @@
     }
   }
 
-  function openSection(id) {
+  function closeDrawer() {
+    document.body.classList.remove("drawer-open");
+    elements.menuButton.setAttribute("aria-expanded", "false");
+  }
+
+  function showHome() {
+    currentId = null;
+    document.body.className = "view-home";
+    document.title = HOME_TITLE;
+    elements.frame.classList.remove("is-ready");
+    elements.frame.removeAttribute("src");
+  }
+
+  function showSection(id) {
     const section = sectionById[id];
-    if (!section) return;
     currentId = id;
-    writeStorage(STORAGE_LAST, id);
-    if (location.hash !== "#s" + id) history.replaceState(null, "", "#s" + id);
+    document.body.className = "view-reader";
 
     elements.frame.classList.remove("is-ready");
     elements.frame.src = section.file + ".html";
     elements.currentTitle.textContent = section.title;
-    document.title = section.title + " · Estudo CLF-C02";
+    document.title = section.title + " · " + HOME_TITLE;
 
     const domain = section.domain ? domainByKey[section.domain] : null;
     elements.currentDomain.replaceChildren();
     elements.currentDomain.style.removeProperty("--segment-color");
     if (domain) {
       elements.currentDomain.style.setProperty("--segment-color", domain.color);
-      const swatch = document.createElement("span");
-      swatch.className = "swatch";
-      elements.currentDomain.append(swatch);
+      elements.currentDomain.append(createElement("span", "swatch"));
     }
     const descriptor = domain ? section.label + " · " + domain.name + " · " + domain.weight + "% da prova" : section.label;
-    const descriptorEl = document.createElement("span");
-    descriptorEl.className = "descriptor";
-    descriptorEl.textContent = descriptor;
-    elements.currentDomain.append(descriptorEl);
+    elements.currentDomain.append(createElement("span", "descriptor", descriptor));
 
     elements.openAlone.href = section.file + ".html";
     elements.openSource.href = REPO_SOURCE_URL + section.file + ".md";
@@ -616,19 +786,16 @@
       }
     });
     updateReadToggle();
-    document.body.classList.remove("drawer-open");
-    elements.menuButton.setAttribute("aria-expanded", "false");
+    closeDrawer();
   }
 
-  function resolveInitialId() {
-    const fromHash = location.hash.match(/^#s(\d\d)$/);
-    if (fromHash && sectionById[fromHash[1]]) return fromHash[1];
-    const last = readStorage(STORAGE_LAST);
-    if (last && sectionById[last]) return last;
-    const firstUnread = SECTIONS.find((section) => !readIds.has(section.id));
-    return (firstUnread || SECTIONS[0]).id;
+  function route() {
+    const match = location.hash.match(/^#s(\d\d)$/);
+    if (match && sectionById[match[1]]) showSection(match[1]);
+    else showHome();
   }
 
+  /* ---------- Actions ---------- */
   function toggleCurrentRead() {
     if (!currentId) return;
     if (readIds.has(currentId)) readIds.delete(currentId); else readIds.add(currentId);
@@ -641,7 +808,7 @@
   }
 
   function handleKey(event) {
-    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (!currentId || event.metaKey || event.ctrlKey || event.altKey) return;
     const isTyping = event.target && event.target.tagName === "INPUT";
     if (event.key === "/" && !isTyping) {
       event.preventDefault();
@@ -657,31 +824,26 @@
 
   /* ---------- Wiring ---------- */
   elements.frame.addEventListener("load", () => {
+    if (!currentId) return;
     applyThemeToFrame();
     bindFrameKeys();
     elements.frame.classList.add("is-ready");
   });
-  window.addEventListener("hashchange", () => {
-    const match = location.hash.match(/^#s(\d\d)$/);
-    if (match) openSection(match[1]);
-  });
+  window.addEventListener("hashchange", route);
   document.addEventListener("keydown", handleKey);
   elements.search.addEventListener("input", applySearch);
   elements.readToggle.addEventListener("click", toggleCurrentRead);
-  elements.themeButton.addEventListener("click", () => {
+  elements.themeButtons.forEach((button) => button.addEventListener("click", () => {
     themeChoice = { auto: "light", light: "dark", dark: "auto" }[themeChoice];
     writeStorage(STORAGE_THEME, themeChoice);
     applyShellTheme();
     applyThemeToFrame();
-  });
+  }));
   elements.menuButton.addEventListener("click", () => {
     const isOpen = document.body.classList.toggle("drawer-open");
     elements.menuButton.setAttribute("aria-expanded", String(isOpen));
   });
-  document.getElementById("scrim").addEventListener("click", () => {
-    document.body.classList.remove("drawer-open");
-    elements.menuButton.setAttribute("aria-expanded", "false");
-  });
+  document.getElementById("scrim").addEventListener("click", closeDrawer);
   document.getElementById("resetProgress").addEventListener("click", () => {
     readIds = new Set();
     saveReadIds();
@@ -690,10 +852,11 @@
 
   loadState();
   applyShellTheme();
+  buildHome();
   buildCoverageBar();
   buildToc();
   refreshProgress();
-  openSection(resolveInitialId());
+  route();
 </script>
 </body>
 </html>
